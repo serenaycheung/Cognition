@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import './App.css'
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
-  ResponsiveContainer, PieChart, Pie, Cell
+  ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line
 } from 'recharts'
 import { Filter, TrendingUp, TrendingDown, DollarSign, Users, BarChart3 } from 'lucide-react'
 
@@ -201,6 +201,25 @@ function App() {
     filtered.filter(d => d.opp_type === 'Partner' || d.opp_type === 'MSP'),
     [filtered]
   )
+
+  const weeklyPartnerMsp = useMemo(() => {
+    const map: Record<string, { Partner: number; MSP: number }> = {}
+    filtered.forEach(d => {
+      if (d.opp_type !== 'Partner' && d.opp_type !== 'MSP') return
+      if (!d.close_date) return
+      const date = new Date(d.close_date)
+      const day = date.getDay()
+      const diff = date.getDate() - day + (day === 0 ? -6 : 1)
+      const weekStart = new Date(date.setDate(diff))
+      const key = weekStart.toISOString().substring(0, 10)
+      if (!map[key]) map[key] = { Partner: 0, MSP: 0 }
+      if (d.opp_type === 'Partner') map[key].Partner += d.amount_usd
+      if (d.opp_type === 'MSP') map[key].MSP += d.amount_usd
+    })
+    return Object.entries(map)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([week, v]) => ({ week, ...v }))
+  }, [filtered])
 
   const partnerRanking = useMemo(() => {
     const map: Record<string, { partner: number; msp: number }> = {}
@@ -453,6 +472,40 @@ function App() {
             </ResponsiveContainer>
           ) : (
             <p className="text-sm text-slate-400">No MSP or Partner deals found</p>
+          )}
+        </div>
+
+        <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
+          <h2 className="text-base font-semibold text-slate-800 mb-4">$ Won Week over Week (Partner vs MSP)</h2>
+          <p className="text-xs text-slate-400 mb-3">Weekly $ won for Partner and MSP deal types</p>
+          {weeklyPartnerMsp.length > 0 ? (
+            <ResponsiveContainer width="100%" height={350}>
+              <LineChart data={weeklyPartnerMsp} margin={{ top: 5, right: 20, bottom: 5, left: 10 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                <XAxis
+                  dataKey="week"
+                  tick={{ fontSize: 11 }}
+                  tickFormatter={(v: string) => {
+                    const d = new Date(v)
+                    return `${d.getMonth() + 1}/${d.getDate()}`
+                  }}
+                />
+                <YAxis tickFormatter={formatCurrency} tick={{ fontSize: 12 }} />
+                <Tooltip
+                  labelFormatter={(label: string) => {
+                    const d = new Date(label)
+                    return `Week of ${d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`
+                  }}
+                  formatter={(value: number, name: string) => [formatCurrency(value), name]}
+                  contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0' }}
+                />
+                <Legend />
+                <Line type="monotone" dataKey="Partner" stroke="#6366f1" strokeWidth={2} dot={{ r: 3 }} activeDot={{ r: 5 }} />
+                <Line type="monotone" dataKey="MSP" stroke="#f59e0b" strokeWidth={2} dot={{ r: 3 }} activeDot={{ r: 5 }} />
+              </LineChart>
+            </ResponsiveContainer>
+          ) : (
+            <p className="text-sm text-slate-400">No Partner or MSP deals found</p>
           )}
         </div>
 
