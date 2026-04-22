@@ -819,7 +819,7 @@ function App() {
             <KPICard
               title="Stalled Opps"
               value={stalledOpps.length.toString()}
-              subtitle="Post-Qualification, >30 days"
+              subtitle="Partner/MSP, open >30 days"
               icon={<Clock className="h-5 w-5 text-amber-600" />}
               color="amber"
             />
