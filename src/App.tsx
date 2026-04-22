@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import './App.css'
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
-  ResponsiveContainer, PieChart, Pie, Cell
+  ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line
 } from 'recharts'
 import { Filter, TrendingUp, TrendingDown, DollarSign, Users, BarChart3 } from 'lucide-react'
 
@@ -65,20 +65,58 @@ const OPP_TYPE_COLORS: Record<string, string> = {
 
 const PIE_COLORS = ['#6366f1', '#06b6d4', '#f59e0b', '#94a3b8', '#10b981', '#ef4444']
 
+interface Consumption {
+  consumption_id: string
+  linked_opp_id: string
+  account_name: string
+  partner_name: string
+  product: string
+  month: string
+  consumption_units: number
+  consumption_usd: number
+  accelerated_vs_baseline_pct: number
+}
+
+function parseConsumptionCSV(text: string): Consumption[] {
+  const lines = text.trim().split('\n')
+  const headers = lines[0].split(',')
+  return lines.slice(1).filter(line => line.trim()).map(line => {
+    const values = line.split(',')
+    const row: Record<string, string> = {}
+    headers.forEach((h, i) => { row[h.trim()] = (values[i] || '').trim() })
+    return {
+      consumption_id: row.consumption_id || '',
+      linked_opp_id: row.linked_opp_id || '',
+      account_name: row.account_name || '',
+      partner_name: row.partner_name || '',
+      product: row.product || '',
+      month: row.month || '',
+      consumption_units: parseFloat(row.consumption_units) || 0,
+      consumption_usd: parseFloat(row.consumption_usd) || 0,
+      accelerated_vs_baseline_pct: parseFloat(row.accelerated_vs_baseline_pct) || 0,
+    }
+  })
+}
+
 function App() {
   const [data, setData] = useState<Opportunity[]>([])
+  const [consumptionData, setConsumptionData] = useState<Consumption[]>([])
   const [loading, setLoading] = useState(true)
+  const [activeTab, setActiveTab] = useState<'opportunities' | 'consumption'>('opportunities')
   const [selectedYear, setSelectedYear] = useState<string>('All')
   const [selectedRegion, setSelectedRegion] = useState<string>('All')
   const [selectedStage, setSelectedStage] = useState<string>('Closed Won')
+  const [consSelectedYear, setConsSelectedYear] = useState<string>('All')
 
   useEffect(() => {
-    fetch('/sf_opportunities.csv')
-      .then(res => res.text())
-      .then(text => {
-        setData(parseCSV(text))
-        setLoading(false)
-      })
+    Promise.all([
+      fetch('/sf_opportunities.csv').then(res => res.text()),
+      fetch('/consumption.csv').then(res => res.text()),
+    ]).then(([oppText, consText]) => {
+      setData(parseCSV(oppText))
+      setConsumptionData(parseConsumptionCSV(consText))
+      setLoading(false)
+    })
   }, [])
 
   const stages = useMemo(() =>
@@ -221,6 +259,51 @@ function App() {
   const partnerDealCount = partnerMspFiltered.length
   const avgPartnerDealSize = partnerDealCount > 0 ? totalPartnerWon / partnerDealCount : 0
 
+  // --- Consumption tab data ---
+  const consYears = useMemo(() =>
+    [...new Set(consumptionData.map(d => d.month.substring(0, 4)))].sort(),
+    [consumptionData]
+  )
+
+  const consFiltered = useMemo(() => {
+    if (consSelectedYear === 'All') return consumptionData
+    return consumptionData.filter(d => d.month.substring(0, 4) === consSelectedYear)
+  }, [consumptionData, consSelectedYear])
+
+  const consTotalWithPartner = useMemo(() =>
+    consFiltered.filter(d => d.partner_name).reduce((s, d) => s + d.consumption_usd, 0),
+    [consFiltered]
+  )
+  const consTotalWithoutPartner = useMemo(() =>
+    consFiltered.filter(d => !d.partner_name).reduce((s, d) => s + d.consumption_usd, 0),
+    [consFiltered]
+  )
+  const consTotal = consTotalWithPartner + consTotalWithoutPartner
+
+  const consMonthlyTrend = useMemo(() => {
+    const map: Record<string, { withPartner: number; withoutPartner: number }> = {}
+    consFiltered.forEach(d => {
+      if (!map[d.month]) map[d.month] = { withPartner: 0, withoutPartner: 0 }
+      if (d.partner_name) map[d.month].withPartner += d.consumption_usd
+      else map[d.month].withoutPartner += d.consumption_usd
+    })
+    return Object.entries(map)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([month, v]) => ({ month, 'With Partner': v.withPartner, 'Without Partner': v.withoutPartner }))
+  }, [consFiltered])
+
+  const consPartnerRanking = useMemo(() => {
+    const map: Record<string, number> = {}
+    consFiltered.forEach(d => {
+      if (!d.partner_name) return
+      map[d.partner_name] = (map[d.partner_name] || 0) + d.consumption_usd
+    })
+    return Object.entries(map)
+      .map(([name, value]) => ({ name, value }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 15)
+  }, [consFiltered])
+
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
@@ -238,42 +321,82 @@ function App() {
             <p className="text-sm text-slate-500 mt-0.5">Sales performance and partner analytics</p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            <div className="flex items-center gap-2">
-              <Filter className="h-4 w-4 text-slate-400" />
-              <select
-                value={selectedYear}
-                onChange={e => setSelectedYear(e.target.value)}
-                className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-              >
-                <option value="All">All Years</option>
-                {years.map(y => <option key={y} value={y}>{y}</option>)}
-              </select>
-            </div>
-            <div className="flex items-center gap-2">
-              <select
-                value={selectedRegion}
-                onChange={e => setSelectedRegion(e.target.value)}
-                className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-              >
-                <option value="All">All Regions</option>
-                {regions.map(r => <option key={r} value={r}>{r}</option>)}
-              </select>
-            </div>
-            <div className="flex items-center gap-2">
-              <select
-                value={selectedStage}
-                onChange={e => setSelectedStage(e.target.value)}
-                className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-              >
-                <option value="All">All Stages</option>
-                {stages.map(s => <option key={s} value={s}>{s}</option>)}
-              </select>
-            </div>
+            {activeTab === 'opportunities' && (
+              <>
+                <div className="flex items-center gap-2">
+                  <Filter className="h-4 w-4 text-slate-400" />
+                  <select
+                    value={selectedYear}
+                    onChange={e => setSelectedYear(e.target.value)}
+                    className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                  >
+                    <option value="All">All Years</option>
+                    {years.map(y => <option key={y} value={y}>{y}</option>)}
+                  </select>
+                </div>
+                <div className="flex items-center gap-2">
+                  <select
+                    value={selectedRegion}
+                    onChange={e => setSelectedRegion(e.target.value)}
+                    className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                  >
+                    <option value="All">All Regions</option>
+                    {regions.map(r => <option key={r} value={r}>{r}</option>)}
+                  </select>
+                </div>
+                <div className="flex items-center gap-2">
+                  <select
+                    value={selectedStage}
+                    onChange={e => setSelectedStage(e.target.value)}
+                    className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                  >
+                    <option value="All">All Stages</option>
+                    {stages.map(s => <option key={s} value={s}>{s}</option>)}
+                  </select>
+                </div>
+              </>
+            )}
+            {activeTab === 'consumption' && (
+              <div className="flex items-center gap-2">
+                <Filter className="h-4 w-4 text-slate-400" />
+                <select
+                  value={consSelectedYear}
+                  onChange={e => setConsSelectedYear(e.target.value)}
+                  className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                >
+                  <option value="All">All Years</option>
+                  {consYears.map(y => <option key={y} value={y}>{y}</option>)}
+                </select>
+              </div>
+            )}
           </div>
+        </div>
+        <div className="flex gap-1 mt-4">
+          <button
+            onClick={() => setActiveTab('opportunities')}
+            className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+              activeTab === 'opportunities'
+                ? 'bg-indigo-600 text-white'
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+            }`}
+          >
+            SF Opportunities
+          </button>
+          <button
+            onClick={() => setActiveTab('consumption')}
+            className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+              activeTab === 'consumption'
+                ? 'bg-indigo-600 text-white'
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+            }`}
+          >
+            Consumption
+          </button>
         </div>
       </header>
 
       <main className="px-4 py-6 sm:px-6 lg:px-8 space-y-6">
+      {activeTab === 'opportunities' && (<>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <KPICard
             title="Total Partner $ Won"
@@ -504,6 +627,90 @@ function App() {
             )}
           </div>
         </div>
+      </>)}
+
+      {activeTab === 'consumption' && (
+        <>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <KPICard
+              title="Total Consumption"
+              value={formatCurrency(consTotal)}
+              subtitle="All deals"
+              icon={<DollarSign className="h-5 w-5 text-emerald-600" />}
+              color="emerald"
+            />
+            <KPICard
+              title="With Partners"
+              value={formatCurrency(consTotalWithPartner)}
+              subtitle={`${consTotal > 0 ? ((consTotalWithPartner / consTotal) * 100).toFixed(1) : 0}% of total`}
+              icon={<Users className="h-5 w-5 text-indigo-600" />}
+              color="indigo"
+            />
+            <KPICard
+              title="Without Partners"
+              value={formatCurrency(consTotalWithoutPartner)}
+              subtitle={`${consTotal > 0 ? ((consTotalWithoutPartner / consTotal) * 100).toFixed(1) : 0}% of total`}
+              icon={<BarChart3 className="h-5 w-5 text-cyan-600" />}
+              color="cyan"
+            />
+          </div>
+
+          <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
+            <h2 className="text-base font-semibold text-slate-800 mb-4">Consumption Trend (With vs Without Partners)</h2>
+            <p className="text-xs text-slate-400 mb-3">Monthly consumption USD</p>
+            {consMonthlyTrend.length > 0 ? (
+              <ResponsiveContainer width="100%" height={350}>
+                <LineChart data={consMonthlyTrend} margin={{ top: 5, right: 20, bottom: 5, left: 10 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                  <XAxis
+                    dataKey="month"
+                    tick={{ fontSize: 11 }}
+                    tickFormatter={(v: string) => {
+                      const parts = v.split('-')
+                      return `${parts[1]}/${parts[0].substring(2)}`
+                    }}
+                  />
+                  <YAxis tickFormatter={formatCurrency} tick={{ fontSize: 12 }} />
+                  <Tooltip
+                    labelFormatter={(label: string) => {
+                      const d = new Date(label + '-01')
+                      return d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+                    }}
+                    formatter={(value: number, name: string) => [formatCurrency(value), name]}
+                    contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0' }}
+                  />
+                  <Legend />
+                  <Line type="monotone" dataKey="With Partner" stroke="#6366f1" strokeWidth={2} dot={{ r: 3 }} activeDot={{ r: 5 }} />
+                  <Line type="monotone" dataKey="Without Partner" stroke="#9ca3af" strokeWidth={2} dot={{ r: 3 }} activeDot={{ r: 5 }} />
+                </LineChart>
+              </ResponsiveContainer>
+            ) : (
+              <p className="text-sm text-slate-400">No consumption data found</p>
+            )}
+          </div>
+
+          <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
+            <h2 className="text-base font-semibold text-slate-800 mb-4">Total Consumption USD by Partner</h2>
+            <p className="text-xs text-slate-400 mb-3">Top partners ranked by total consumption</p>
+            {consPartnerRanking.length > 0 ? (
+              <ResponsiveContainer width="100%" height={Math.max(300, consPartnerRanking.length * 36)}>
+                <BarChart data={consPartnerRanking} layout="vertical" margin={{ left: 20 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                  <XAxis type="number" tickFormatter={formatCurrency} tick={{ fontSize: 12 }} />
+                  <YAxis type="category" dataKey="name" width={160} tick={{ fontSize: 11 }} />
+                  <Tooltip
+                    formatter={(value: number) => [formatCurrency(value), 'Consumption']}
+                    contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0' }}
+                  />
+                  <Bar dataKey="value" fill="#6366f1" radius={[0, 4, 4, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            ) : (
+              <p className="text-sm text-slate-400">No partner consumption data found</p>
+            )}
+          </div>
+        </>
+      )}
       </main>
     </div>
   )

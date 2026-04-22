@@ -1,0 +1,194 @@
+consumption_id,linked_opp_id,account_name,partner_name,product,month,consumption_units,consumption_usd,accelerated_vs_baseline_pct
+CON-0001,OPP-0013,Enterprise_197,Infosys BPM,Analytics Cloud,2025-02,1161.1,136164.32,13.0
+CON-0002,OPP-0013,Enterprise_197,Infosys BPM,Analytics Cloud,2025-03,223.0,76581.05,8.7
+CON-0003,OPP-0014,Enterprise_188,Insight Global,Data Intelligence,2024-08,868.5,103450.28,24.9
+CON-0004,OPP-0014,Enterprise_188,Insight Global,Data Intelligence,2024-09,1999.0,91468.56,-2.3
+CON-0005,OPP-0014,Enterprise_188,Insight Global,Data Intelligence,2024-10,585.1,121608.85,31.3
+CON-0006,OPP-0030,Enterprise_142,kpmg,Analytics Cloud,2024-12,1953.4,92898.08,19.0
+CON-0007,OPP-0030,Enterprise_142,kpmg,Analytics Cloud,2025-01,1206.2,145867.9,31.6
+CON-0008,OPP-0030,Enterprise_142,kpmg,Analytics Cloud,2025-02,1454.6,174159.36,0.1
+CON-0009,OPP-0030,Enterprise_142,kpmg,Analytics Cloud,2025-03,1914.9,30804.13,0.3
+CON-0010,OPP-0040,Enterprise_104,Cognizant Technology Solutions,Governance Suite,2025-01,319.5,161235.39,22.8
+CON-0011,OPP-0040,Enterprise_104,Cognizant Technology Solutions,Governance Suite,2025-02,356.6,32610.03,-1.1
+CON-0012,OPP-0044,Enterprise_164,Cognizant,Data Intelligence,2024-06,1808.1,67007.61,23.5
+CON-0013,OPP-0045,Enterprise_228,CDW Corporation,Analytics Cloud,2025-01,657.3,154876.03,4.4
+CON-0014,OPP-0049,Enterprise_203,CDW Corporation,Governance Suite,2024-07,442.0,25060.79,36.5
+CON-0015,OPP-0049,Enterprise_203,CDW Corporation,Governance Suite,2024-08,701.9,75339.79,14.2
+CON-0016,OPP-0049,Enterprise_203,CDW Corporation,Governance Suite,2024-09,418.3,145916.25,28.2
+CON-0017,OPP-0049,Enterprise_203,CDW Corporation,Governance Suite,2024-10,555.7,27432.9,5.4
+CON-0018,OPP-0053,Enterprise_150,Presidio,ML Platform,2024-07,316.2,103619.29,44.5
+CON-0019,OPP-0053,Enterprise_150,Presidio,ML Platform,2024-08,1973.6,70679.34,5.3
+CON-0020,OPP-0060,Enterprise_210,Insight Direct,Governance Suite,2024-11,1736.0,172994.38,22.2
+CON-0021,OPP-0060,Enterprise_210,Insight Direct,Governance Suite,2024-12,1006.6,113715.91,6.5
+CON-0022,OPP-0060,Enterprise_210,Insight Direct,Governance Suite,2025-01,360.8,68264.62,11.1
+CON-0023,OPP-0060,Enterprise_210,Insight Direct,Governance Suite,2025-02,686.2,168593.75,39.8
+CON-0024,OPP-0060,Enterprise_210,Insight Direct,Governance Suite,2025-03,860.1,158393.27,12.3
+CON-0025,OPP-0074,Enterprise_232,Accenture,Governance Suite,2024-04,1407.7,60466.16,33.3
+CON-0026,OPP-0075,Enterprise_142,Capgemini SE,ML Platform,2024-08,1969.1,69874.27,5.4
+CON-0027,OPP-0077,Enterprise_144,Cognizant Technology Solutions,Analytics Cloud,2024-12,375.3,23145.36,30.6
+CON-0028,OPP-0077,Enterprise_144,Cognizant Technology Solutions,Analytics Cloud,2025-01,100.3,146612.72,4.5
+CON-0029,OPP-0077,Enterprise_144,Cognizant Technology Solutions,Analytics Cloud,2025-02,1372.3,82938.23,29.9
+CON-0030,OPP-0077,Enterprise_144,Cognizant Technology Solutions,Analytics Cloud,2025-03,1266.0,94294.04,31.4
+CON-0031,OPP-0085,Enterprise_131,Slalom,Data Intelligence,2024-07,631.9,115954.53,38.6
+CON-0032,OPP-0085,Enterprise_131,Slalom,Data Intelligence,2024-08,449.5,135773.17,23.0
+CON-0033,OPP-0085,Enterprise_131,Slalom,Data Intelligence,2024-09,1042.7,165231.11,36.2
+CON-0034,OPP-0100,Enterprise_147,Slalom Build,ML Platform,2024-09,157.8,118876.99,32.5
+CON-0035,OPP-0100,Enterprise_147,Slalom Build,ML Platform,2024-10,674.3,165209.39,32.5
+CON-0036,OPP-0100,Enterprise_147,Slalom Build,ML Platform,2024-11,510.5,9313.93,35.6
+CON-0037,OPP-0100,Enterprise_147,Slalom Build,ML Platform,2024-12,917.3,112703.61,6.0
+CON-0038,OPP-0111,accenture,accenture,ML Platform,2024-10,801.5,133937.5,37.9
+CON-0039,OPP-0111,accenture,accenture,ML Platform,2024-11,1828.5,193451.17,44.7
+CON-0040,OPP-0111,accenture,accenture,ML Platform,2024-12,196.4,160798.71,9.9
+CON-0041,OPP-0112,Deloitte,Deloitte Consulting,ML Platform,2024-03,1423.9,20504.5,15.4
+CON-0042,OPP-0112,Deloitte,Deloitte Consulting,ML Platform,2024-04,858.0,37165.24,44.8
+CON-0043,OPP-0112,Deloitte,Deloitte Consulting,ML Platform,2024-05,1512.3,186970.8,47.7
+CON-0044,OPP-0112,Deloitte,Deloitte Consulting,ML Platform,2024-06,1517.0,38394.15,29.8
+CON-0045,OPP-0114,Capgemini,Capgemini,Analytics Cloud,2024-06,1978.8,116050.38,32.3
+CON-0046,OPP-0114,Capgemini,Capgemini,Analytics Cloud,2024-07,1152.3,81474.94,40.0
+CON-0047,OPP-0115,Infosys BPM,Infosys BPM,ML Platform,2024-05,1626.0,153799.92,-4.7
+CON-0048,OPP-0115,Infosys BPM,Infosys BPM,ML Platform,2024-06,734.4,162141.2,32.0
+CON-0049,OPP-0115,Infosys BPM,Infosys BPM,ML Platform,2024-07,1113.4,71787.53,41.0
+CON-0050,OPP-0117,Infosys,Infosys BPM,Analytics Cloud,2024-10,848.7,130764.76,-3.9
+CON-0051,OPP-0119,Wipro,Wipro Technologies,Data Intelligence,2024-07,1088.3,190870.34,6.0
+CON-0052,OPP-0121,Deloitte Consulting,Deloitte Consulting,Analytics Cloud,2024-10,1908.5,73251.11,47.2
+CON-0053,OPP-0121,Deloitte Consulting,Deloitte Consulting,Analytics Cloud,2024-11,1456.3,95859.86,18.9
+CON-0054,OPP-0121,Deloitte Consulting,Deloitte Consulting,Analytics Cloud,2024-12,1910.4,183664.39,12.7
+CON-0055,OPP-0122,Infosys,Infosys BPM,Governance Suite,2024-07,1213.4,25018.37,8.5
+CON-0056,OPP-0122,Infosys,Infosys BPM,Governance Suite,2024-08,1501.3,30031.45,27.3
+CON-0057,OPP-0122,Infosys,Infosys BPM,Governance Suite,2024-09,547.2,158737.24,3.1
+CON-0058,OPP-0125,Cognizant Technology Solutions,Cognizant Technology Solutions,Data Intelligence,2024-07,1536.9,27602.12,13.3
+CON-0059,OPP-0125,Cognizant Technology Solutions,Cognizant Technology Solutions,Data Intelligence,2024-08,991.4,124047.75,1.7
+CON-0060,OPP-0127,WIPRO,Wipro,Governance Suite,2024-08,1121.0,95105.89,6.8
+CON-0061,OPP-0127,WIPRO,Wipro,Governance Suite,2024-09,155.1,96745.87,3.3
+CON-0062,OPP-0127,WIPRO,Wipro,Governance Suite,2024-10,540.4,122378.73,6.8
+CON-0063,OPP-0127,WIPRO,Wipro,Governance Suite,2024-11,1294.1,5416.32,-3.8
+CON-0064,OPP-0127,WIPRO,Wipro,Governance Suite,2024-12,1636.3,58913.73,25.2
+CON-0065,OPP-0130,Infosys,Infosys BPM,Data Intelligence,2025-03,449.0,169589.99,33.3
+CON-0066,OPP-0134,Wipro,Wipro Technologies,Governance Suite,2024-11,1405.5,21503.24,8.6
+CON-0067,OPP-0134,Wipro,Wipro Technologies,Governance Suite,2024-12,829.5,199802.9,46.3
+CON-0068,OPP-0134,Wipro,Wipro Technologies,Governance Suite,2025-01,488.9,22490.22,3.8
+CON-0069,OPP-0135,Wipro Technologies,Wipro,Governance Suite,2024-03,594.4,67476.44,2.6
+CON-0070,OPP-0135,Wipro Technologies,Wipro,Governance Suite,2024-04,915.5,188729.54,41.7
+CON-0071,OPP-0135,Wipro Technologies,Wipro,Governance Suite,2024-05,1119.7,45027.85,47.3
+CON-0072,OPP-0135,Wipro Technologies,Wipro,Governance Suite,2024-06,928.3,153605.9,45.1
+CON-0073,OPP-0141,Deloitte Consulting,Deloitte Digital,Data Intelligence,2024-08,119.4,188308.68,16.9
+CON-0074,OPP-0141,Deloitte Consulting,Deloitte Digital,Data Intelligence,2024-09,400.6,25495.41,45.2
+CON-0075,OPP-0141,Deloitte Consulting,Deloitte Digital,Data Intelligence,2024-10,1485.9,34339.27,34.2
+CON-0076,OPP-0141,Deloitte Consulting,Deloitte Digital,Data Intelligence,2024-11,1919.5,137801.99,41.0
+CON-0077,OPP-0141,Deloitte Consulting,Deloitte Digital,Data Intelligence,2024-12,608.8,145493.97,5.2
+CON-0078,OPP-0147,Deloitte Digital,Deloitte,Analytics Cloud,2024-04,945.0,32346.89,10.3
+CON-0079,OPP-0147,Deloitte Digital,Deloitte,Analytics Cloud,2024-05,455.1,149743.26,30.8
+CON-0080,OPP-0147,Deloitte Digital,Deloitte,Analytics Cloud,2024-06,1878.0,27357.06,43.7
+CON-0081,OPP-0147,Deloitte Digital,Deloitte,Analytics Cloud,2024-07,229.2,173076.44,47.5
+CON-0082,OPP-0149,Cognizant,Cognizant,Data Intelligence,2024-09,1083.9,83660.06,3.9
+CON-0083,OPP-0149,Cognizant,Cognizant,Data Intelligence,2024-10,254.8,125151.48,13.2
+CON-0084,OPP-0149,Cognizant,Cognizant,Data Intelligence,2024-11,333.0,30368.16,2.9
+CON-0085,OPP-0149,Cognizant,Cognizant,Data Intelligence,2024-12,221.6,196865.28,44.9
+CON-0086,OPP-0150,Deloitte Digital,Deloitte Digital,Analytics Cloud,2025-01,1054.7,186593.22,7.4
+CON-0087,OPP-0151,WIPRO,Wipro,Governance Suite,2024-11,367.4,88573.99,46.9
+CON-0088,OPP-0155,Accenture,accenture,Governance Suite,2024-06,1102.6,51814.91,10.1
+CON-0089,OPP-0155,Accenture,accenture,Governance Suite,2024-07,853.2,58742.76,39.6
+CON-0090,OPP-0155,Accenture,accenture,Governance Suite,2024-08,1748.8,155080.25,4.4
+CON-0091,OPP-0155,Accenture,accenture,Governance Suite,2024-09,98.6,188694.0,26.8
+CON-0092,OPP-0159,Enterprise_239,,ML Platform,2024-07,656.3,163138.99,24.0
+CON-0093,OPP-0160,Enterprise_132,Deloitte,ML Platform,2024-06,1404.7,154401.55,44.6
+CON-0094,OPP-0160,Enterprise_132,Deloitte,ML Platform,2024-07,1137.8,46642.53,-2.0
+CON-0095,OPP-0160,Enterprise_132,Deloitte,ML Platform,2024-08,382.1,135794.84,25.7
+CON-0096,OPP-0160,Enterprise_132,Deloitte,ML Platform,2024-09,1094.0,9666.06,28.4
+CON-0097,OPP-0160,Enterprise_132,Deloitte,ML Platform,2024-10,1294.3,143055.34,43.1
+CON-0098,OPP-0163,Enterprise_102,,Analytics Cloud,2024-10,1885.3,70466.28,2.2
+CON-0099,OPP-0163,Enterprise_102,,Analytics Cloud,2024-11,1635.5,75773.85,33.3
+CON-0100,OPP-0163,Enterprise_102,,Analytics Cloud,2024-12,1012.2,183883.16,12.3
+CON-0101,OPP-0163,Enterprise_102,,Analytics Cloud,2025-01,1104.3,130861.16,42.6
+CON-0102,OPP-0168,Enterprise_110,,Data Intelligence,2024-12,1503.5,162486.81,33.8
+CON-0103,OPP-0170,Enterprise_191,Cognizant Technology Solutions,Data Intelligence,2024-10,259.7,105522.96,24.0
+CON-0104,OPP-0170,Enterprise_191,Cognizant Technology Solutions,Data Intelligence,2024-11,721.4,181699.55,43.0
+CON-0105,OPP-0170,Enterprise_191,Cognizant Technology Solutions,Data Intelligence,2024-12,1153.6,56770.05,18.5
+CON-0106,OPP-0170,Enterprise_191,Cognizant Technology Solutions,Data Intelligence,2025-01,1153.8,108271.19,9.5
+CON-0107,OPP-0170,Enterprise_191,Cognizant Technology Solutions,Data Intelligence,2025-02,716.6,39968.25,31.5
+CON-0108,OPP-0172,Enterprise_129,,Data Intelligence,2025-02,323.9,167430.07,19.9
+CON-0109,OPP-0172,Enterprise_129,,Data Intelligence,2025-03,404.3,45337.59,7.7
+CON-0110,OPP-0177,Enterprise_212,,Analytics Cloud,2024-10,233.3,24833.5,-1.9
+CON-0111,OPP-0177,Enterprise_212,,Analytics Cloud,2024-11,496.0,88214.9,10.2
+CON-0112,OPP-0178,Enterprise_172,,Analytics Cloud,2025-03,818.4,130868.75,7.0
+CON-0113,OPP-0179,Enterprise_113,Cognizant Technology Solutions,Data Intelligence,2024-09,197.4,133796.96,1.0
+CON-0114,OPP-0179,Enterprise_113,Cognizant Technology Solutions,Data Intelligence,2024-10,197.9,75521.77,21.8
+CON-0115,OPP-0179,Enterprise_113,Cognizant Technology Solutions,Data Intelligence,2024-11,373.0,178003.86,0.2
+CON-0116,OPP-0187,Enterprise_105,,Analytics Cloud,2024-09,1008.7,82672.64,19.3
+CON-0117,OPP-0187,Enterprise_105,,Analytics Cloud,2024-10,1668.8,142013.81,26.8
+CON-0118,OPP-0187,Enterprise_105,,Analytics Cloud,2024-10,825.6,182259.69,6.3
+CON-0119,OPP-0187,Enterprise_105,,Analytics Cloud,2024-11,1861.9,24622.92,11.6
+CON-0120,OPP-0187,Enterprise_105,,Analytics Cloud,2024-12,688.5,46483.68,20.3
+CON-0121,OPP-0192,Enterprise_189,,Data Intelligence,2024-10,1582.6,86744.78,12.1
+CON-0122,OPP-0192,Enterprise_189,,Data Intelligence,2024-11,735.6,31784.09,46.9
+CON-0123,OPP-0192,Enterprise_189,,Data Intelligence,2024-12,1942.7,179839.82,14.8
+CON-0124,OPP-0202,Enterprise_134,,Governance Suite,2024-10,1160.9,115264.57,39.8
+CON-0125,OPP-0202,Enterprise_134,,Governance Suite,2024-11,451.2,86472.56,43.4
+CON-0126,OPP-0202,Enterprise_134,,Governance Suite,2024-12,1778.5,129888.99,11.3
+CON-0127,OPP-0202,Enterprise_134,,Governance Suite,2025-01,1285.4,186838.72,19.4
+CON-0128,OPP-0202,Enterprise_134,,Governance Suite,2025-02,236.2,185813.72,-1.6
+CON-0129,OPP-0204,Enterprise_175,Accenture LLP,ML Platform,2025-01,780.1,40046.64,20.5
+CON-0130,OPP-0207,Enterprise_155,Cognizant Technology Solutions,Analytics Cloud,2024-10,1275.3,5783.05,4.4
+CON-0131,OPP-0208,Enterprise_144,,Analytics Cloud,2024-07,205.6,161514.86,32.0
+CON-0132,OPP-0208,Enterprise_144,,Analytics Cloud,2024-08,1518.2,99223.79,21.5
+CON-0133,OPP-0209,Enterprise_212,,Analytics Cloud,2024-12,425.5,93398.76,7.5
+CON-0134,OPP-0209,Enterprise_212,,Analytics Cloud,2025-01,1786.1,184020.56,13.0
+CON-0135,OPP-0209,Enterprise_212,,Analytics Cloud,2025-02,329.8,54736.82,36.9
+CON-0136,OPP-0209,Enterprise_212,,Analytics Cloud,2025-03,1615.1,74641.73,21.9
+CON-0137,OPP-0216,Enterprise_166,Cognizant,Data Intelligence,2024-12,1177.2,71357.88,42.2
+CON-0138,OPP-0216,Enterprise_166,Cognizant,Data Intelligence,2025-01,1288.0,133840.39,22.4
+CON-0139,OPP-0218,Enterprise_119,Deloitte Digital,Analytics Cloud,2025-02,385.7,112446.44,39.5
+CON-0140,OPP-0218,Enterprise_119,Deloitte Digital,Analytics Cloud,2025-03,753.3,94565.08,11.9
+CON-0141,OPP-0219,Enterprise_102,,Analytics Cloud,2025-03,571.5,196559.89,28.3
+CON-0142,OPP-0230,Enterprise_102,,Analytics Cloud,2024-07,1439.1,22112.0,34.5
+CON-0143,OPP-0231,Enterprise_222,,Analytics Cloud,2024-09,733.9,79421.17,31.3
+CON-0144,OPP-0231,Enterprise_222,,Analytics Cloud,2024-10,593.4,134447.79,16.3
+CON-0145,OPP-0231,Enterprise_222,,Analytics Cloud,2024-11,1422.6,17881.95,19.0
+CON-0146,OPP-0235,Enterprise_222,,ML Platform,2024-06,213.4,176587.98,38.4
+CON-0147,OPP-0235,Enterprise_222,,ML Platform,2024-07,1864.9,172989.23,8.9
+CON-0148,OPP-0235,Enterprise_222,,ML Platform,2024-08,549.7,25334.15,-1.0
+CON-0149,OPP-0235,Enterprise_222,,ML Platform,2024-08,1462.6,145497.04,-3.5
+CON-0150,OPP-0235,Enterprise_222,,ML Platform,2024-09,389.2,103076.02,21.2
+CON-0151,OPP-0247,Enterprise_165,,Analytics Cloud,2024-07,502.2,73457.29,45.6
+CON-0152,OPP-0247,Enterprise_165,,Analytics Cloud,2024-08,1050.1,7803.77,28.4
+CON-0153,OPP-0247,Enterprise_165,,Analytics Cloud,2024-09,297.1,89515.19,17.7
+CON-0154,OPP-0248,Enterprise_106,,Analytics Cloud,2024-04,668.4,163678.2,11.6
+CON-0155,OPP-0248,Enterprise_106,,Analytics Cloud,2024-05,1707.3,28626.48,36.1
+CON-0156,OPP-0260,Enterprise_200,,ML Platform,2024-12,1591.7,160436.56,-3.5
+CON-0157,OPP-0260,Enterprise_200,,ML Platform,2025-01,1017.5,175747.31,38.2
+CON-0158,OPP-0260,Enterprise_200,,ML Platform,2025-02,1085.3,68350.33,18.1
+CON-0159,OPP-0272,Enterprise_228,,Governance Suite,2024-05,1943.8,7499.85,29.1
+CON-0160,OPP-0272,Enterprise_228,,Governance Suite,2024-06,1361.1,62969.23,18.7
+CON-0161,OPP-0272,Enterprise_228,,Governance Suite,2024-07,1974.3,76451.92,22.7
+CON-0162,OPP-0272,Enterprise_228,,Governance Suite,2024-08,1890.2,15644.44,40.5
+CON-0163,OPP-0272,Enterprise_228,,Governance Suite,2024-09,1539.3,104555.63,-1.5
+CON-0164,,Enterprise_209,kpmg,ML Platform,2024-11,533.3,14048.56,18.6
+CON-0165,,Enterprise_220,Capgemini,ML Platform,2024-08,535.4,16519.68,-0.4
+CON-0166,,Enterprise_153,Cognizant,Analytics Cloud,2025-02,324.8,79461.23,-2.6
+CON-0167,,Enterprise_109,Deloitte,ML Platform,2024-05,581.8,64526.38,17.4
+CON-0168,,Enterprise_230,Wipro,Analytics Cloud,2024-04,71.5,36418.77,-2.7
+CON-0169,,Enterprise_131,Wipro Technologies,ML Platform,2024-04,518.3,36001.94,13.2
+CON-0170,,Enterprise_114,KPMG,Analytics Cloud,2024-09,402.4,58828.27,6.3
+CON-0171,,Enterprise_166,Cognizant Technology Solutions,Governance Suite,2025-01,590.7,22911.01,19.5
+CON-0172,,Enterprise_175,Presidio Inc,ML Platform,2024-05,417.7,32280.9,1.7
+CON-0173,,Enterprise_163,Cognizant Technology Solutions,Data Intelligence,2024-01,171.1,16272.77,12.3
+CON-0174,,Enterprise_132,Presidio,ML Platform,2024-10,408.5,52180.77,13.0
+CON-0175,,Enterprise_200,KPMG,Governance Suite,2024-05,65.4,77916.9,20.0
+CON-0176,,Enterprise_182,Infosys,Analytics Cloud,2024-06,625.8,57197.44,-2.8
+CON-0177,,Enterprise_246,Accenture,Analytics Cloud,2024-03,56.1,34690.57,2.4
+CON-0178,,Enterprise_159,Infosys BPM,ML Platform,2024-09,180.9,61959.27,18.8
+CON-0179,,Enterprise_123,Presidio,Data Intelligence,2024-01,609.9,6295.41,8.3
+CON-0180,,Enterprise_123,WIPRO,Governance Suite,2024-11,277.7,64717.2,11.2
+CON-0181,,Enterprise_148,Wipro,Data Intelligence,2025-01,551.8,30368.05,11.0
+CON-0182,,Enterprise_166,,ML Platform,2025-01,407.9,57662.09,9.5
+CON-0183,,Enterprise_195,Deloitte Digital,Analytics Cloud,2024-07,525.4,11380.1,11.0
+CON-0184,,Enterprise_174,KPMG LLP,Governance Suite,2024-09,488.1,18772.09,14.8
+CON-0185,,Enterprise_143,Infosys BPM,Governance Suite,2024-03,447.8,73284.79,7.7
+CON-0186,,Enterprise_138,,ML Platform,2025-03,617.1,72408.48,6.0
+CON-0187,,Enterprise_135,Infosys BPM,Data Intelligence,2024-10,706.3,54517.6,5.1
+CON-0188,,Enterprise_188,Deloitte Digital,ML Platform,2024-10,485.4,24726.2,9.8
+CON-0189,,Enterprise_166,,ML Platform,2024-03,682.4,58488.58,8.1
+CON-0190,,Enterprise_152,,Governance Suite,2024-06,218.9,24341.54,13.2
+CON-0191,,Enterprise_174,Accenture,Data Intelligence,2024-08,790.8,55759.25,13.4
+CON-0192,,Enterprise_132,Cognizant Technology Solutions,ML Platform,2024-01,266.4,57258.63,19.8
+CON-0193,,Enterprise_200,Cognizant,Data Intelligence,2024-04,57.2,60863.12,9.3
