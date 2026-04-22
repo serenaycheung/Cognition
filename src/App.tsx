@@ -190,9 +190,14 @@ function App() {
       .sort((a, b) => b.value - a.value)
   }, [filtered])
 
-  const totalWon = useMemo(() => filtered.reduce((s, d) => s + d.amount_usd, 0), [filtered])
-  const dealCount = filtered.length
-  const avgDealSize = dealCount > 0 ? totalWon / dealCount : 0
+  const partnerMspFiltered = useMemo(() =>
+    filtered.filter(d => d.opp_type === 'Partner' || d.opp_type === 'MSP'),
+    [filtered]
+  )
+
+  const totalPartnerWon = useMemo(() => partnerMspFiltered.reduce((s, d) => s + d.amount_usd, 0), [partnerMspFiltered])
+  const partnerDealCount = partnerMspFiltered.length
+  const avgPartnerDealSize = partnerDealCount > 0 ? totalPartnerWon / partnerDealCount : 0
 
   if (loading) {
     return (
@@ -239,20 +244,23 @@ function App() {
       <main className="px-4 py-6 sm:px-6 lg:px-8 space-y-6">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <KPICard
-            title="Total $ Won"
-            value={formatCurrency(totalWon)}
+            title="Total Partner $ Won"
+            value={formatCurrency(totalPartnerWon)}
+            subtitle="MSP + Partner Deals"
             icon={<DollarSign className="h-5 w-5 text-emerald-600" />}
             color="emerald"
           />
           <KPICard
             title="Deals Won"
-            value={dealCount.toString()}
+            value={partnerDealCount.toString()}
+            subtitle="MSP + Partner Deals"
             icon={<BarChart3 className="h-5 w-5 text-indigo-600" />}
             color="indigo"
           />
           <KPICard
             title="Avg Deal Size"
-            value={formatCurrency(avgDealSize)}
+            value={formatCurrency(avgPartnerDealSize)}
+            subtitle="MSP + Partner Deals"
             icon={<TrendingUp className="h-5 w-5 text-cyan-600" />}
             color="cyan"
           />
