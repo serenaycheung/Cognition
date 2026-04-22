@@ -66,7 +66,6 @@ const OPP_TYPE_COLORS: Record<string, string> = {
 const PIE_COLORS = ['#6366f1', '#06b6d4', '#f59e0b', '#94a3b8', '#10b981', '#ef4444']
 
 const OPEN_STAGES = ['Prospecting', 'Qualification', 'Proposal', 'Negotiation']
-const POST_QUAL_STAGES = ['Proposal', 'Negotiation']
 
 interface Consumption {
   consumption_id: string
@@ -323,15 +322,15 @@ function App() {
       const monday = new Date(date)
       monday.setDate(diff)
       const weekKey = monday.toISOString().substring(0, 10)
-      weekMap[weekKey] = (weekMap[weekKey] || 0) + d.amount_usd
+      weekMap[weekKey] = (weekMap[weekKey] || 0) + 1
     })
     const sorted = Object.entries(weekMap)
       .sort(([a], [b]) => a.localeCompare(b))
-      .map(([week, amount]) => ({ week, amount }))
+      .map(([week, count]) => ({ week, count }))
     return sorted.map((item, i) => ({
       week: item.week,
-      amount: item.amount,
-      change: i > 0 ? item.amount - sorted[i - 1].amount : 0,
+      count: item.count,
+      change: i > 0 ? item.count - sorted[i - 1].count : 0,
     }))
   }, [pipelineOpps])
 
@@ -339,7 +338,7 @@ function App() {
     const now = new Date()
     return pipelineOpps
       .filter(d => {
-        if (!POST_QUAL_STAGES.includes(d.stage)) return false
+        if (d.opp_type !== 'Partner' && d.opp_type !== 'MSP') return false
         const created = new Date(d.created_date)
         const daysSinceCreated = Math.floor((now.getTime() - created.getTime()) / (1000 * 60 * 60 * 24))
         return daysSinceCreated > 30
@@ -812,9 +811,9 @@ function App() {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <KPICard
               title="Partner Open Pipeline"
-              value={formatCurrency(pipelineOpps.filter(d => d.opp_type === 'Partner' || d.opp_type === 'MSP').reduce((s, d) => s + d.amount_usd, 0))}
-              subtitle="Excl. Closed Won & Lost"
-              icon={<DollarSign className="h-5 w-5 text-emerald-600" />}
+              value={pipelineOpps.filter(d => d.opp_type === 'Partner' || d.opp_type === 'MSP').length.toString()}
+              subtitle="# Deals excl. Closed Won & Lost"
+              icon={<BarChart3 className="h-5 w-5 text-emerald-600" />}
               color="emerald"
             />
             <KPICard
@@ -834,8 +833,8 @@ function App() {
           </div>
 
           <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
-            <h2 className="text-base font-semibold text-slate-800 mb-4">$ Partner Open Pipeline — Week over Week</h2>
-            <p className="text-xs text-slate-400 mb-3">Partner + MSP opps in open stages (excl. Closed Won & Closed Lost)</p>
+            <h2 className="text-base font-semibold text-slate-800 mb-4"># Partner Open Pipeline Changes — Week over Week</h2>
+            <p className="text-xs text-slate-400 mb-3">Partner + MSP deal count in open stages (excl. Closed Won & Closed Lost)</p>
             {partnerPipelineWoW.length > 0 ? (
               <ResponsiveContainer width="100%" height={350}>
                 <BarChart data={partnerPipelineWoW}>
@@ -848,17 +847,17 @@ function App() {
                       return `${d.getMonth() + 1}/${d.getDate()}`
                     }}
                   />
-                  <YAxis tickFormatter={formatCurrency} tick={{ fontSize: 12 }} />
+                  <YAxis tick={{ fontSize: 12 }} allowDecimals={false} />
                   <Tooltip
                     labelFormatter={(label: string) => `Week of ${label}`}
                     formatter={(value: number, name: string) => [
-                      formatCurrency(value),
-                      name === 'amount' ? 'Pipeline Added' : 'WoW Change',
+                      value,
+                      name === 'count' ? 'Deals Created' : 'WoW Change',
                     ]}
                     contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0' }}
                   />
-                  <Legend formatter={(value: string) => value === 'amount' ? 'Pipeline Added' : 'WoW Change'} />
-                  <Bar dataKey="amount" fill="#6366f1" radius={[4, 4, 0, 0]} />
+                  <Legend formatter={(value: string) => value === 'count' ? 'Deals Created' : 'WoW Change'} />
+                  <Bar dataKey="count" fill="#6366f1" radius={[4, 4, 0, 0]} />
                   <Bar dataKey="change" fill="#f59e0b" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
@@ -869,10 +868,10 @@ function App() {
 
           <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
             <h2 className="text-base font-semibold text-slate-800 mb-4">
-              Stalled Opportunities (Post-Qualification, &gt;30 Days)
+              Stalled Partner Opportunities, &gt;30 Days
               <span className="ml-2 text-sm font-normal text-slate-400">({stalledOpps.length})</span>
             </h2>
-            <p className="text-xs text-slate-400 mb-3">Opportunities in Proposal or Negotiation stage created more than 30 days ago</p>
+            <p className="text-xs text-slate-400 mb-3">Partner &amp; MSP opportunities open for more than 30 days</p>
             {stalledOpps.length > 0 ? (
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
