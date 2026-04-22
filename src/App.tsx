@@ -70,6 +70,7 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [selectedYear, setSelectedYear] = useState<string>('All')
   const [selectedRegion, setSelectedRegion] = useState<string>('All')
+  const [selectedStage, setSelectedStage] = useState<string>('Closed Won')
 
   useEffect(() => {
     fetch('/sf_opportunities.csv')
@@ -80,15 +81,20 @@ function App() {
       })
   }, [])
 
-  const closedWon = useMemo(() =>
-    data.filter(d => d.stage === 'Closed Won' && d.close_date),
+  const stages = useMemo(() =>
+    [...new Set(data.map(d => d.stage).filter(Boolean))].sort(),
     [data]
   )
 
+  const stageFiltered = useMemo(() => {
+    if (selectedStage === 'All') return data.filter(d => d.close_date)
+    return data.filter(d => d.stage === selectedStage && d.close_date)
+  }, [data, selectedStage])
+
   const years = useMemo(() => {
-    const yrs = [...new Set(closedWon.map(d => d.close_date.substring(0, 4)))].sort()
+    const yrs = [...new Set(stageFiltered.map(d => d.close_date.substring(0, 4)))].sort()
     return yrs
-  }, [closedWon])
+  }, [stageFiltered])
 
   const regions = useMemo(() =>
     [...new Set(data.map(d => d.region).filter(Boolean))].sort(),
@@ -96,13 +102,13 @@ function App() {
   )
 
   const filtered = useMemo(() => {
-    return closedWon.filter(d => {
+    return stageFiltered.filter(d => {
       const year = d.close_date.substring(0, 4)
       const matchYear = selectedYear === 'All' || year === selectedYear
       const matchRegion = selectedRegion === 'All' || d.region === selectedRegion
       return matchYear && matchRegion
     })
-  }, [closedWon, selectedYear, selectedRegion])
+  }, [stageFiltered, selectedYear, selectedRegion])
 
   const wonByOppType = useMemo(() => {
     const map: Record<string, number> = {}
@@ -117,7 +123,7 @@ function App() {
 
   const yoyGrowth = useMemo(() => {
     const byYearType: Record<string, Record<string, number>> = {}
-    closedWon.forEach(d => {
+    stageFiltered.forEach(d => {
       const matchRegion = selectedRegion === 'All' || d.region === selectedRegion
       if (!matchRegion) return
       const year = d.close_date.substring(0, 4)
@@ -127,7 +133,7 @@ function App() {
     })
 
     const sortedYears = Object.keys(byYearType).sort()
-    const oppTypes = [...new Set(closedWon.map(d => d.opp_type || 'Unspecified'))]
+    const oppTypes = [...new Set(stageFiltered.map(d => d.opp_type || 'Unspecified'))]
 
     return sortedYears.map(year => {
       const row: Record<string, string | number> = { year }
@@ -136,12 +142,12 @@ function App() {
       })
       return row
     })
-  }, [closedWon, selectedRegion])
+  }, [stageFiltered, selectedRegion])
 
   const yoyPercentages = useMemo(() => {
     if (yoyGrowth.length < 2) return []
     const results: { type: string; growth: number; current: number; previous: number }[] = []
-    const oppTypes = [...new Set(closedWon.map(d => d.opp_type || 'Unspecified'))]
+    const oppTypes = [...new Set(stageFiltered.map(d => d.opp_type || 'Unspecified'))]
     const latest = yoyGrowth[yoyGrowth.length - 1]
     const prev = yoyGrowth[yoyGrowth.length - 2]
 
@@ -152,7 +158,7 @@ function App() {
       results.push({ type, growth, current, previous })
     })
     return results.sort((a, b) => b.current - a.current)
-  }, [yoyGrowth, closedWon])
+  }, [yoyGrowth, stageFiltered])
 
   const partnerAttachRate = useMemo(() => {
     const totalWon = filtered.reduce((sum, d) => sum + d.amount_usd, 0)
@@ -162,7 +168,7 @@ function App() {
 
   const partnerAttachByYear = useMemo(() => {
     const byYear: Record<string, { total: number; partner: number }> = {}
-    closedWon.forEach(d => {
+    stageFiltered.forEach(d => {
       const matchRegion = selectedRegion === 'All' || d.region === selectedRegion
       if (!matchRegion) return
       const year = d.close_date.substring(0, 4)
@@ -178,7 +184,7 @@ function App() {
         partnerWon: v.partner,
         totalWon: v.total,
       }))
-  }, [closedWon, selectedRegion])
+  }, [stageFiltered, selectedRegion])
 
   const wonByRegion = useMemo(() => {
     const map: Record<string, number> = {}
@@ -236,6 +242,16 @@ function App() {
               >
                 <option value="All">All Regions</option>
                 {regions.map(r => <option key={r} value={r}>{r}</option>)}
+              </select>
+            </div>
+            <div className="flex items-center gap-2">
+              <select
+                value={selectedStage}
+                onChange={e => setSelectedStage(e.target.value)}
+                className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              >
+                <option value="All">All Stages</option>
+                {stages.map(s => <option key={s} value={s}>{s}</option>)}
               </select>
             </div>
           </div>
@@ -307,7 +323,7 @@ function App() {
                   contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0' }}
                 />
                 <Legend />
-                {[...new Set(closedWon.map(d => d.opp_type || 'Unspecified'))].map((type, i) => (
+                {[...new Set(stageFiltered.map(d => d.opp_type || 'Unspecified'))].map((type, i) => (
                   <Bar
                     key={type}
                     dataKey={type}
