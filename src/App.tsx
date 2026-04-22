@@ -109,6 +109,7 @@ function App() {
   const [selectedRegion, setSelectedRegion] = useState<string>('All')
   const [selectedStage, setSelectedStage] = useState<string>('Closed Won')
   const [consSelectedYear, setConsSelectedYear] = useState<string>('All')
+  const [pipelineSelectedYear, setPipelineSelectedYear] = useState<string>('All')
 
   useEffect(() => {
     Promise.all([
@@ -352,8 +353,20 @@ function App() {
       .sort((a, b) => b.amount_usd - a.amount_usd)
   }, [pipelineOpps])
 
-  const closedWonWeekly = useMemo(() => {
-    const closedWon = data.filter(d => d.stage === 'Closed Won' && d.close_date)
+  const pipelineYears = useMemo(() => {
+    const yrs = new Set<string>()
+    data.forEach(d => {
+      if (d.stage === 'Closed Won' && d.close_date) yrs.add(d.close_date.substring(0, 4))
+    })
+    return [...yrs].sort()
+  }, [data])
+
+  const closedWonCumulative = useMemo(() => {
+    const closedWon = data.filter(d => {
+      if (d.stage !== 'Closed Won' || !d.close_date) return false
+      if (pipelineSelectedYear !== 'All' && d.close_date.substring(0, 4) !== pipelineSelectedYear) return false
+      return true
+    })
     const weekMap: Record<string, { total: number; partner: number }> = {}
     closedWon.forEach(d => {
       const date = new Date(d.close_date)
@@ -368,28 +381,34 @@ function App() {
         weekMap[weekKey].partner += d.amount_usd
       }
     })
-    return Object.entries(weekMap)
+    const sorted = Object.entries(weekMap)
       .sort(([a], [b]) => a.localeCompare(b))
-      .map(([week, v]) => ({
+    let cumTotal = 0
+    let cumPartner = 0
+    return sorted.map(([week, v]) => {
+      cumTotal += v.total
+      cumPartner += v.partner
+      return {
         week,
-        total: v.total,
-        partner: v.partner,
-        attachRate: v.total > 0 ? (v.partner / v.total) * 100 : 0,
-      }))
-  }, [data])
+        cumTotal,
+        cumPartner,
+        cumAttachRate: cumTotal > 0 ? (cumPartner / cumTotal) * 100 : 0,
+      }
+    })
+  }, [data, pipelineSelectedYear])
 
   const latestWeekMetrics = useMemo(() => {
-    if (closedWonWeekly.length === 0) return { partnerWon: 0, attachRate: 0, partnerWonChange: 0, attachRateChange: 0 }
-    const latest = closedWonWeekly[closedWonWeekly.length - 1]
-    const prev = closedWonWeekly.length > 1 ? closedWonWeekly[closedWonWeekly.length - 2] : null
+    if (closedWonCumulative.length === 0) return { partnerWon: 0, attachRate: 0, partnerWonChange: 0, attachRateChange: 0 }
+    const latest = closedWonCumulative[closedWonCumulative.length - 1]
+    const prev = closedWonCumulative.length > 1 ? closedWonCumulative[closedWonCumulative.length - 2] : null
     return {
-      partnerWon: latest.partner,
-      attachRate: latest.attachRate,
-      partnerWonChange: prev ? latest.partner - prev.partner : 0,
-      attachRateChange: prev ? latest.attachRate - prev.attachRate : 0,
+      partnerWon: latest.cumPartner,
+      attachRate: latest.cumAttachRate,
+      partnerWonChange: prev ? latest.cumPartner - prev.cumPartner : 0,
+      attachRateChange: prev ? latest.cumAttachRate - prev.cumAttachRate : 0,
       latestWeek: latest.week,
     }
-  }, [closedWonWeekly])
+  }, [closedWonCumulative])
 
   const consByProduct = useMemo(() => {
     const map: Record<string, { withPartner: number; withoutPartner: number }> = {}
@@ -466,6 +485,19 @@ function App() {
                 >
                   <option value="All">All Years</option>
                   {consYears.map(y => <option key={y} value={y}>{y}</option>)}
+                </select>
+              </div>
+            )}
+            {activeTab === 'pipeline' && (
+              <div className="flex items-center gap-2">
+                <Filter className="h-4 w-4 text-slate-400" />
+                <select
+                  value={pipelineSelectedYear}
+                  onChange={e => setPipelineSelectedYear(e.target.value)}
+                  className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                >
+                  <option value="All">All Years</option>
+                  {pipelineYears.map(y => <option key={y} value={y}>{y}</option>)}
                 </select>
               </div>
             )}
