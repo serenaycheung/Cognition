@@ -202,6 +202,21 @@ function App() {
     [filtered]
   )
 
+  const partnerRanking = useMemo(() => {
+    const map: Record<string, { partner: number; msp: number }> = {}
+    filtered.forEach(d => {
+      if (d.opp_type !== 'Partner' && d.opp_type !== 'MSP') return
+      const name = d.partner_name || 'Unknown'
+      if (!map[name]) map[name] = { partner: 0, msp: 0 }
+      if (d.opp_type === 'Partner') map[name].partner += d.amount_usd
+      if (d.opp_type === 'MSP') map[name].msp += d.amount_usd
+    })
+    return Object.entries(map)
+      .map(([name, v]) => ({ name, Partner: v.partner, MSP: v.msp, total: v.partner + v.msp }))
+      .sort((a, b) => b.total - a.total)
+      .slice(0, 15)
+  }, [filtered])
+
   const totalPartnerWon = useMemo(() => partnerMspFiltered.reduce((s, d) => s + d.amount_usd, 0), [partnerMspFiltered])
   const partnerDealCount = partnerMspFiltered.length
   const avgPartnerDealSize = partnerDealCount > 0 ? totalPartnerWon / partnerDealCount : 0
@@ -416,6 +431,29 @@ function App() {
               </PieChart>
             </ResponsiveContainer>
           </div>
+        </div>
+
+        <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
+          <h2 className="text-base font-semibold text-slate-800 mb-4">$ Won by Partner (MSP vs Partner)</h2>
+          <p className="text-xs text-slate-400 mb-3">Top partners ranked by total $ won (MSP + Partner deals)</p>
+          {partnerRanking.length > 0 ? (
+            <ResponsiveContainer width="100%" height={Math.max(300, partnerRanking.length * 36)}>
+              <BarChart data={partnerRanking} layout="vertical" margin={{ left: 20 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                <XAxis type="number" tickFormatter={formatCurrency} tick={{ fontSize: 12 }} />
+                <YAxis type="category" dataKey="name" width={160} tick={{ fontSize: 11 }} />
+                <Tooltip
+                  formatter={(value: number, name: string) => [formatCurrency(value), name]}
+                  contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0' }}
+                />
+                <Legend />
+                <Bar dataKey="Partner" stackId="a" fill="#6366f1" radius={[0, 0, 0, 0]} />
+                <Bar dataKey="MSP" stackId="a" fill="#f59e0b" radius={[0, 4, 4, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <p className="text-sm text-slate-400">No MSP or Partner deals found</p>
+          )}
         </div>
 
         <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
