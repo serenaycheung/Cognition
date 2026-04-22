@@ -1,0 +1,293 @@
+opp_id,opp_name,account_name,partner_name,opp_type,region,product,stage,amount_usd,partner_margin_usd,created_date,close_date,sales_rep,partner_tier
+OPP-0001,Enterprise_163 - ML Platform,Enterprise_122,Infosys BPM,Partner,LATAM,Data Intelligence,Qualification,,,2024-07-13,,Riley Chen,1
+OPP-0002,Enterprise_155 - Analytics Cloud,Enterprise_199,Capgemini SE,Direct,EMEA,ML Platform,Proposal,,,2024-04-12,,Sam Patel,2
+OPP-0003,Enterprise_203 - Data Intelligence,Enterprise_168,Insight Global,Partner,North America,Governance Suite,Closed Won,104000,16018,2024-04-01,2024-06-26,Alex Kim,3
+OPP-0004,Enterprise_150 - Governance Suite,Enterprise_113,WIPRO,Partner,EMEA,ML Platform,Prospecting,,,2024-09-30,,Jordan Brooks,2
+OPP-0005,Enterprise_207 - Data Intelligence,Enterprise_208,kpmg,Partner,North America,ML Platform,Closed Won,535000,455760,2025-01-17,2025-02-08,Morgan Lee,2
+OPP-0006,Enterprise_203 - ML Platform,Enterprise_114,World Wide Tech,Partner,EMEA,Governance Suite,Proposal,,,2024-01-03,,Morgan Lee,2
+OPP-0007,Enterprise_138 - Governance Suite,Enterprise_131,Presidio,,North America,ML Platform,Closed Won,382000,56024,2024-07-25,2024-08-26,Morgan Lee,3
+OPP-0008,Enterprise_243 - Analytics Cloud,Enterprise_227,KPMG,,APAC,Data Intelligence,Proposal,,,2024-03-31,,Morgan Lee,2
+OPP-0009,Enterprise_249 - Data Intelligence,Enterprise_186,KPMG,Partner,LATAM,Governance Suite,Prospecting,,,2024-12-13,,Morgan Lee,2
+OPP-0010,Enterprise_123 - ML Platform,Enterprise_109,Infosys BPM,Partner,LATAM,Governance Suite,Proposal,,,2024-07-16,,Alex Kim,1
+OPP-0011,Enterprise_163 - Governance Suite,Enterprise_175,Cognizant Technology Solutions,,North America,Governance Suite,Closed Won,128000,23155,2025-03-13,2025-03-22,Sam Patel,2
+OPP-0012,Enterprise_182 - Governance Suite,Enterprise_236,Cognizant,,APAC,Governance Suite,Negotiation,,,2024-02-05,,Morgan Lee,2
+OPP-0013,Enterprise_212 - ML Platform,Enterprise_197,Infosys BPM,Direct,EMEA,Analytics Cloud,Closed Won,309000,,2024-12-03,2024-12-23,Jamie Torres,1
+OPP-0014,Enterprise_159 - Governance Suite,Enterprise_188,Insight Global,,LATAM,Data Intelligence,Closed Won,195000,22725,2024-06-30,2024-08-18,Jamie Torres,3
+OPP-0015,Enterprise_142 - Governance Suite,Enterprise_152,Presidio Inc,Partner,LATAM,Governance Suite,Qualification,,,2024-09-29,,Riley Chen,3
+OPP-0016,Enterprise_108 - Data Intelligence,Enterprise_206,Presidio Inc,Partner,APAC,Analytics Cloud,Closed Won,225000,49485,2024-11-16,2025-01-28,Alex Kim,3
+OPP-0017,Enterprise_133 - Governance Suite,Enterprise_199,Deloitte Digital,Partner,EMEA,Analytics Cloud,Closed Won,196000,,2025-03-18,2025-03-24,Morgan Lee,1
+OPP-0018,Enterprise_197 - ML Platform,Enterprise_222,Slalom Build,,LATAM,ML Platform,Negotiation,,,2024-05-20,,Jamie Torres,2
+OPP-0019,Enterprise_226 - Data Intelligence,Enterprise_185,Presidio,Partner,APAC,Data Intelligence,Closed Lost,35000,,2024-05-02,2024-09-12,Riley Chen,3
+OPP-0020,Enterprise_112 - Governance Suite,Enterprise_109,Wipro,Partner,APAC,ML Platform,Proposal,,,2024-07-30,,Riley Chen,2
+OPP-0021,Enterprise_224 - ML Platform,Enterprise_169,Cognizant Technology Solutions,Partner,APAC,Data Intelligence,Closed Won,447000,,2024-03-22,2024-04-05,Riley Chen,2
+OPP-0022,Enterprise_236 - Data Intelligence,Enterprise_129,Slalom Build,,EMEA,ML Platform,Negotiation,,,2025-02-01,,Alex Kim,2
+OPP-0023,Enterprise_197 - ML Platform,Enterprise_190,Presidio,Partner,EMEA,Analytics Cloud,Prospecting,,,2024-02-14,,Jamie Torres,3
+OPP-0024,Enterprise_227 - Data Intelligence,Enterprise_159,WIPRO,Partner,North America,ML Platform,Closed Won,334000,,2025-02-18,2025-03-02,Riley Chen,2
+OPP-0025,Enterprise_180 - Data Intelligence,Enterprise_249,Cap Gemini,Partner,North America,Analytics Cloud,Closed Won,185000,36519,2025-01-10,2025-01-20,Alex Kim,2
+OPP-0026,Enterprise_226 - Governance Suite,Enterprise_118,KPMG,Partner,APAC,ML Platform,Closed Lost,322000,,2024-01-06,2024-05-27,Riley Chen,2
+OPP-0027,Enterprise_158 - ML Platform,Enterprise_104,Insight,Partner,LATAM,Governance Suite,Closed Won,55000,,2024-06-11,2024-09-02,Riley Chen,3
+OPP-0028,Enterprise_113 - ML Platform,Enterprise_161,CDW-G,Partner,APAC,ML Platform,Qualification,,,2025-01-31,,Riley Chen,3
+OPP-0029,Enterprise_151 - ML Platform,Enterprise_146,Deloitte Consulting,,APAC,Data Intelligence,Prospecting,,,2024-08-10,,Morgan Lee,1
+OPP-0030,Enterprise_214 - Data Intelligence,Enterprise_142,kpmg,,EMEA,Analytics Cloud,Closed Won,23000,1955,2024-10-23,2024-11-30,Sam Patel,2
+OPP-0031,Enterprise_159 - Governance Suite,Enterprise_153,kpmg,Partner,North America,Governance Suite,Closed Lost,398000,,2024-09-01,2024-09-24,Riley Chen,2
+OPP-0032,Enterprise_163 - ML Platform,Enterprise_165,Slalom,Partner,North America,ML Platform,Qualification,,,2025-02-13,,Alex Kim,2
+OPP-0033,Enterprise_185 - Governance Suite,Enterprise_148,Presidio,,North America,Data Intelligence,Closed Won,424000,38223,2024-04-26,2024-08-11,Sam Patel,3
+OPP-0034,Enterprise_174 - ML Platform,Enterprise_168,Accenture Inc,Partner,North America,Analytics Cloud,Qualification,,,2024-06-10,,Alex Kim,1
+OPP-0035,Enterprise_136 - Analytics Cloud,Enterprise_235,CDW Corporation,Partner,EMEA,Governance Suite,Qualification,,,2024-07-05,,Jamie Torres,3
+OPP-0036,Enterprise_197 - Data Intelligence,Enterprise_191,Accenture Inc,Direct,LATAM,ML Platform,Qualification,,,2024-06-30,,Riley Chen,1
+OPP-0037,Enterprise_154 - ML Platform,Enterprise_187,kpmg,Partner,APAC,Data Intelligence,Prospecting,,,2025-02-03,,Jordan Brooks,2
+OPP-0038,Enterprise_194 - Governance Suite,Enterprise_208,Accenture LLP,Partner,APAC,Analytics Cloud,Qualification,,,2024-08-10,,Jordan Brooks,1
+OPP-0039,Enterprise_116 - Data Intelligence,Enterprise_156,WIPRO,Partner,APAC,Data Intelligence,Qualification,,,2025-02-17,,Morgan Lee,2
+OPP-0040,Enterprise_198 - Data Intelligence,Enterprise_104,Cognizant Technology Solutions,Partner,LATAM,Governance Suite,Closed Won,472000,72254,2024-11-14,2025-01-07,Sam Patel,2
+OPP-0041,Enterprise_201 - ML Platform,Enterprise_117,Wipro Technologies,,APAC,Governance Suite,Closed Lost,128000,,2024-09-17,2025-01-31,Jordan Brooks,2
+OPP-0042,Enterprise_121 - ML Platform,Enterprise_204,Capgemini,Partner,LATAM,Data Intelligence,Closed Lost,40000,,2024-06-22,2024-07-13,Jamie Torres,2
+OPP-0043,Enterprise_127 - Data Intelligence,Enterprise_210,Deloitte Digital,Partner,EMEA,ML Platform,Proposal,,,2025-02-13,,Jordan Brooks,1
+OPP-0044,Enterprise_168 - Analytics Cloud,Enterprise_164,Cognizant,Partner,APAC,Data Intelligence,Closed Won,337000,62428,2024-03-31,2024-04-26,Jamie Torres,2
+OPP-0045,Enterprise_223 - ML Platform,Enterprise_228,CDW Corporation,,LATAM,Analytics Cloud,Closed Won,504000,,2024-11-05,2025-01-08,Riley Chen,3
+OPP-0046,Enterprise_148 - Analytics Cloud,Enterprise_230,Cognizant,Partner,EMEA,Analytics Cloud,Qualification,,,2024-11-20,,Riley Chen,2
+OPP-0047,Enterprise_137 - Data Intelligence,Enterprise_186,Presidio Inc,Partner,North America,Data Intelligence,Qualification,,,2024-02-06,,Sam Patel,3
+OPP-0048,Enterprise_149 - Data Intelligence,Enterprise_161,Deloitte Digital,Partner,EMEA,Data Intelligence,Negotiation,,,2024-08-05,,Alex Kim,1
+OPP-0049,Enterprise_155 - Analytics Cloud,Enterprise_203,CDW Corporation,Partner,North America,Governance Suite,Closed Won,588000,62677,2024-05-12,2024-06-25,Jordan Brooks,3
+OPP-0050,Enterprise_189 - ML Platform,Enterprise_111,Cognizant Technology Solutions,Partner,EMEA,ML Platform,Negotiation,,,2024-09-02,,Jordan Brooks,2
+OPP-0051,Enterprise_141 - Analytics Cloud,Enterprise_242,Presidio,Partner,APAC,Data Intelligence,Proposal,,,2024-11-05,,Jamie Torres,3
+OPP-0052,Enterprise_111 - Data Intelligence,Enterprise_236,World Wide Technology,Partner,APAC,Analytics Cloud,Proposal,,,2024-10-30,,Alex Kim,2
+OPP-0053,Enterprise_187 - Governance Suite,Enterprise_150,Presidio,Direct,North America,ML Platform,Closed Won,582000,,2024-06-17,2024-07-12,Jordan Brooks,3
+OPP-0054,Enterprise_239 - Governance Suite,Enterprise_195,Deloitte Consulting,,LATAM,Analytics Cloud,Proposal,,,2024-08-31,,Jamie Torres,1
+OPP-0055,Enterprise_125 - Data Intelligence,Enterprise_194,slalom consulting,Partner,APAC,ML Platform,Proposal,,,2025-02-02,,Riley Chen,2
+OPP-0056,Enterprise_133 - Analytics Cloud,Enterprise_106,Deloitte Consulting,,APAC,ML Platform,Closed Won,302000,29611,2024-11-05,2025-01-18,Alex Kim,1
+OPP-0057,Enterprise_211 - Governance Suite,Enterprise_123,Infosys BPM,Partner,North America,Governance Suite,Negotiation,,,2024-09-25,,Alex Kim,1
+OPP-0058,Enterprise_161 - Data Intelligence,Enterprise_132,Cap Gemini,,North America,Analytics Cloud,Prospecting,,,2024-11-29,,Riley Chen,2
+OPP-0059,Enterprise_116 - Data Intelligence,Enterprise_155,kpmg,,North America,Governance Suite,Closed Lost,568000,,2024-11-25,2025-01-09,Alex Kim,2
+OPP-0060,Enterprise_156 - ML Platform,Enterprise_210,Insight Direct,Partner,EMEA,Governance Suite,Closed Won,23000,,2024-09-25,2025-01-30,Morgan Lee,3
+OPP-0061,Enterprise_163 - Governance Suite,Enterprise_195,World Wide Technology,Partner,EMEA,Analytics Cloud,Closed Won,328000,,2024-01-11,2024-01-19,Riley Chen,2
+OPP-0062,Enterprise_247 - Analytics Cloud,Enterprise_237,Wipro,,LATAM,Analytics Cloud,Closed Lost,52000,,2024-12-23,2025-03-21,Alex Kim,2
+OPP-0063,Enterprise_205 - Analytics Cloud,Enterprise_177,Presidio Inc,Partner,North America,ML Platform,Negotiation,,,2024-05-10,,Jamie Torres,3
+OPP-0064,Enterprise_104 - ML Platform,Enterprise_235,CDW,,APAC,Analytics Cloud,Qualification,,,2024-05-08,,Morgan Lee,3
+OPP-0065,Enterprise_195 - ML Platform,Enterprise_101,Infosys,,LATAM,Governance Suite,Proposal,,,2024-07-02,,Morgan Lee,1
+OPP-0066,Enterprise_145 - Analytics Cloud,Enterprise_245,CDW,Partner,North America,Governance Suite,Negotiation,,,2025-03-05,,Riley Chen,3
+OPP-0067,Enterprise_154 - Data Intelligence,Enterprise_201,Insight,,LATAM,Analytics Cloud,Qualification,,,2024-10-27,,Morgan Lee,3
+OPP-0068,Enterprise_163 - Governance Suite,Enterprise_140,Slalom,Partner,LATAM,ML Platform,Prospecting,,,2024-12-26,,Morgan Lee,2
+OPP-0069,Enterprise_220 - Governance Suite,Enterprise_155,Deloitte Consulting,Partner,APAC,Governance Suite,Prospecting,,,2024-04-04,,Morgan Lee,1
+OPP-0070,Enterprise_211 - Analytics Cloud,Enterprise_170,Presidio,Partner,EMEA,Governance Suite,Closed Lost,458000,,2024-01-04,2024-05-25,Riley Chen,3
+OPP-0071,Enterprise_176 - Governance Suite,Enterprise_218,Wipro,Partner,LATAM,Data Intelligence,Closed Won,474000,68090,2024-12-19,2025-02-18,Jordan Brooks,2
+OPP-0072,Enterprise_197 - Governance Suite,Enterprise_180,Capgemini,Partner,EMEA,ML Platform,Qualification,,,2024-04-08,,Jamie Torres,2
+OPP-0073,Enterprise_148 - ML Platform,Enterprise_156,Presidio Inc,Partner,North America,Analytics Cloud,Closed Lost,135000,,2024-08-07,2024-08-07,Jordan Brooks,3
+OPP-0074,Enterprise_152 - ML Platform,Enterprise_232,Accenture,Direct,EMEA,Governance Suite,Closed Won,217000,,2024-01-23,2024-02-01,Morgan Lee,1
+OPP-0075,Enterprise_215 - Data Intelligence,Enterprise_142,Capgemini SE,Partner,North America,ML Platform,Closed Won,365000,,2024-06-29,2024-09-25,Sam Patel,2
+OPP-0076,Enterprise_185 - Analytics Cloud,Enterprise_222,Cognizant Technology Solutions,Direct,North America,Governance Suite,Closed Won,368000,,2025-01-30,2025-02-22,Jamie Torres,2
+OPP-0077,Enterprise_195 - Data Intelligence,Enterprise_144,Cognizant Technology Solutions,,APAC,Analytics Cloud,Closed Won,130000,10914,2024-10-01,2024-12-24,Riley Chen,2
+OPP-0078,Enterprise_167 - Governance Suite,Enterprise_142,Wipro Technologies,Partner,EMEA,Analytics Cloud,Proposal,,,2024-12-11,,Riley Chen,2
+OPP-0079,Enterprise_156 - ML Platform,Enterprise_113,Deloitte,Partner,APAC,Governance Suite,Closed Won,103000,9847,2024-02-14,2024-03-03,Alex Kim,1
+OPP-0080,Enterprise_145 - ML Platform,Enterprise_248,Insight Global,Partner,North America,Data Intelligence,Closed Won,215000,,2024-01-04,2024-03-24,Alex Kim,3
+OPP-0081,Enterprise_173 - Analytics Cloud,Enterprise_248,Accenture Inc,Partner,EMEA,Analytics Cloud,Closed Lost,168000,,2024-06-05,2024-10-03,Alex Kim,1
+OPP-0082,Enterprise_121 - ML Platform,Enterprise_100,accenture,,APAC,Governance Suite,Proposal,,,2024-05-07,,Sam Patel,1
+OPP-0083,Enterprise_230 - Governance Suite,Enterprise_171,WIPRO,,EMEA,Governance Suite,Closed Lost,239000,,2024-03-12,2024-05-10,Alex Kim,2
+OPP-0084,Enterprise_187 - Governance Suite,Enterprise_152,Cognizant,Partner,North America,ML Platform,Prospecting,,,2024-09-22,,Jamie Torres,2
+OPP-0085,Enterprise_163 - Data Intelligence,Enterprise_131,Slalom,Partner,North America,Data Intelligence,Closed Won,35000,,2024-05-19,2024-09-07,Jamie Torres,2
+OPP-0086,Enterprise_198 - Data Intelligence,Enterprise_209,CDW,Partner,LATAM,ML Platform,Closed Lost,403000,,2025-03-16,2025-03-27,Riley Chen,3
+OPP-0087,Enterprise_178 - Data Intelligence,Enterprise_155,Capgemini SE,Direct,EMEA,Data Intelligence,Closed Lost,198000,,2024-06-13,2024-09-11,Riley Chen,2
+OPP-0088,Enterprise_206 - ML Platform,Enterprise_131,Presidio,,EMEA,Governance Suite,Closed Won,498000,,2024-06-10,2024-08-09,Jamie Torres,3
+OPP-0089,Enterprise_119 - Analytics Cloud,Enterprise_120,KPMG,Direct,EMEA,Data Intelligence,Qualification,,,2024-04-13,,Jordan Brooks,2
+OPP-0090,Enterprise_218 - Analytics Cloud,Enterprise_222,WWT,Partner,North America,ML Platform,Closed Won,297000,64169,2024-08-13,2024-12-07,Jamie Torres,2
+OPP-0091,Enterprise_235 - ML Platform,Enterprise_234,Insight Global,Partner,LATAM,Analytics Cloud,Qualification,,,2024-02-05,,Jamie Torres,3
+OPP-0092,Enterprise_113 - Data Intelligence,Enterprise_150,Cognizant Technology Solutions,Partner,APAC,ML Platform,Qualification,,,2024-07-16,,Alex Kim,2
+OPP-0093,Enterprise_218 - ML Platform,Enterprise_187,Insight,Partner,EMEA,ML Platform,Negotiation,,,2025-02-03,,Jordan Brooks,3
+OPP-0094,Enterprise_126 - Governance Suite,Enterprise_246,Cognizant,Partner,LATAM,Analytics Cloud,Qualification,,,2024-05-22,,Jordan Brooks,2
+OPP-0095,Enterprise_177 - Data Intelligence,Enterprise_233,Cognizant Technology Solutions,,APAC,Data Intelligence,Closed Lost,240000,,2024-08-23,2024-10-06,Morgan Lee,2
+OPP-0096,Enterprise_169 - Data Intelligence,Enterprise_135,Accenture LLP,Direct,EMEA,Analytics Cloud,Closed Lost,150000,,2025-01-29,2025-03-18,Alex Kim,1
+OPP-0097,Enterprise_223 - Data Intelligence,Enterprise_211,KPMG LLP,Partner,LATAM,Governance Suite,Prospecting,,,2025-02-27,,Jamie Torres,2
+OPP-0098,Enterprise_194 - ML Platform,Enterprise_188,World Wide Technology,,North America,Data Intelligence,Negotiation,,,2024-02-12,,Jordan Brooks,2
+OPP-0099,Enterprise_172 - ML Platform,Enterprise_158,Deloitte Consulting,Partner,LATAM,Data Intelligence,Qualification,,,2025-02-08,,Morgan Lee,1
+OPP-0100,Enterprise_121 - Governance Suite,Enterprise_147,Slalom Build,Partner,LATAM,ML Platform,Closed Won,281000,50821,2024-07-14,2024-11-09,Alex Kim,2
+OPP-0101,Enterprise_184 - Governance Suite,Enterprise_136,WWT,,North America,Data Intelligence,Closed Lost,105000,,2024-08-06,2024-09-02,Sam Patel,2
+OPP-0102,Enterprise_243 - Analytics Cloud,Enterprise_210,Slalom Build,Partner,APAC,ML Platform,Proposal,,,2024-09-19,,Sam Patel,2
+OPP-0103,Enterprise_223 - Analytics Cloud,Enterprise_195,kpmg,Partner,LATAM,Analytics Cloud,Qualification,,,2025-01-15,,Jamie Torres,2
+OPP-0104,Enterprise_236 - Data Intelligence,Enterprise_213,World Wide Tech,Partner,LATAM,Data Intelligence,Prospecting,,,2024-09-20,,Jordan Brooks,2
+OPP-0105,Enterprise_205 - Governance Suite,Enterprise_104,Slalom,,EMEA,Data Intelligence,Proposal,,,2024-02-17,,Alex Kim,2
+OPP-0106,Enterprise_157 - Analytics Cloud,Enterprise_198,Presidio Inc,Partner,North America,Governance Suite,Proposal,,,2024-11-27,,Jamie Torres,3
+OPP-0107,Enterprise_134 - Data Intelligence,Enterprise_180,Slalom Build,,APAC,ML Platform,Negotiation,,,2024-07-30,,Morgan Lee,2
+OPP-0108,Enterprise_194 - Governance Suite,Enterprise_140,Wipro,Partner,North America,Data Intelligence,Qualification,,,2024-03-03,,Riley Chen,2
+OPP-0109,Enterprise_109 - Data Intelligence,Enterprise_220,CDW,Partner,EMEA,Analytics Cloud,Negotiation,,,2024-06-11,,Jordan Brooks,3
+OPP-0110,Enterprise_246 - Governance Suite,Enterprise_245,Infosys BPM,Direct,North America,ML Platform,Prospecting,,,2024-06-17,,Riley Chen,1
+OPP-0111,Capacity Allocation - Accenture LLP,accenture,accenture,MSP,APAC,ML Platform,Closed Won,217000,,2024-09-12,2024-10-09,Jordan Brooks,1
+OPP-0112,Deloitte Consulting Q4 2024,Deloitte,Deloitte Consulting,,APAC,ML Platform,Closed Won,530000,,2024-01-11,2024-02-24,Jordan Brooks,1
+OPP-0113,Deloitte Consulting - Data Intelligence,Deloitte Digital,Deloitte,,North America,Analytics Cloud,Prospecting,,,2024-06-12,,Riley Chen,1
+OPP-0114,Cap Gemini Annual Commit,Capgemini,Capgemini,MSP,North America,Analytics Cloud,Closed Won,160000,,2024-03-25,2024-04-12,Jamie Torres,2
+OPP-0115,Infosys Q3 2024,Infosys BPM,Infosys BPM,MSP,North America,ML Platform,Closed Won,584000,,2024-02-13,2024-04-08,Riley Chen,1
+OPP-0116,Capacity Allocation - WIPRO,Wipro Technologies,Wipro,MSP,North America,ML Platform,Qualification,,,2024-12-20,,Morgan Lee,2
+OPP-0117,Infosys BPM MSP Capacity 2024,Infosys,Infosys BPM,MSP,LATAM,Analytics Cloud,Closed Won,702000,,2024-08-17,2024-10-31,Alex Kim,1
+OPP-0118,Cognizant - Capacity Block,Cognizant,Cognizant,MSP,APAC,Data Intelligence,Closed Won,645000,,2024-06-04,2024-06-20,Sam Patel,2
+OPP-0119,Wipro Annual Commit,Wipro,Wipro Technologies,,North America,Data Intelligence,Closed Won,599000,,2024-05-12,2024-06-05,Riley Chen,2
+OPP-0120,Capgemini Annual Commit,Capgemini SE,Cap Gemini,MSP,EMEA,Analytics Cloud,Prospecting,,,2024-11-06,,Sam Patel,2
+OPP-0121,Deloitte Consulting Annual Commit,Deloitte Consulting,Deloitte Consulting,MSP,LATAM,Analytics Cloud,Closed Won,317000,,2024-08-17,2024-10-14,Sam Patel,1
+OPP-0122,Infosys BPM - Data Intelligence,Infosys,Infosys BPM,Partner,North America,Governance Suite,Closed Won,416000,,2024-05-30,2024-07-08,Alex Kim,1
+OPP-0123,Wipro MSP Capacity 2024,WIPRO,WIPRO,MSP,EMEA,Analytics Cloud,Closed Lost,521000,,2024-02-19,2024-05-05,Alex Kim,2
+OPP-0124,Capgemini Q2 2024,Capgemini,Capgemini SE,Partner,EMEA,Analytics Cloud,Closed Won,645000,,2024-05-12,2024-06-23,Alex Kim,2
+OPP-0125,Cognizant Technology Solutions Q4 2024,Cognizant Technology Solutions,Cognizant Technology Solutions,MSP,APAC,Data Intelligence,Closed Won,425000,,2024-04-04,2024-04-07,Riley Chen,2
+OPP-0126,Wipro Technologies - Data Intelligence,Wipro,WIPRO,MSP,EMEA,Governance Suite,Prospecting,,,2024-11-25,,Sam Patel,2
+OPP-0127,Wipro - Data Intelligence,WIPRO,Wipro,,LATAM,Governance Suite,Closed Won,242000,,2024-06-13,2024-08-07,Jamie Torres,2
+OPP-0128,Accenture MSP Capacity 2024,accenture,Accenture LLP,MSP,North America,Governance Suite,Closed Lost,50000,,2024-11-01,2024-11-06,Sam Patel,1
+OPP-0129,Capacity Allocation - Deloitte,Deloitte,Deloitte Consulting,MSP,EMEA,Analytics Cloud,Closed Won,50000,,2024-03-08,2024-05-08,Jordan Brooks,1
+OPP-0130,Infosys BPM - ML Platform,Infosys,Infosys BPM,Partner,North America,Data Intelligence,Closed Won,578000,,2025-01-17,2025-02-01,Jamie Torres,1
+OPP-0131,Wipro - Capacity Block,WIPRO,Wipro,Partner,North America,Data Intelligence,Closed Won,520000,,2024-05-17,2024-05-26,Riley Chen,2
+OPP-0132,Infosys MSP Capacity 2024,Infosys BPM,Infosys BPM,MSP,EMEA,ML Platform,Closed Won,60000,,2024-06-09,2024-08-23,Morgan Lee,1
+OPP-0133,Capacity Allocation - Wipro,WIPRO,Wipro,MSP,North America,ML Platform,Closed Won,181000,,2025-01-15,2025-01-16,Morgan Lee,2
+OPP-0134,WIPRO Q2 2024,Wipro,Wipro Technologies,,LATAM,Governance Suite,Closed Won,753000,,2024-09-27,2024-12-09,Riley Chen,2
+OPP-0135,Wipro MSP Capacity 2024,Wipro Technologies,Wipro,MSP,APAC,Governance Suite,Closed Won,364000,,2024-01-10,2024-03-17,Alex Kim,2
+OPP-0136,Wipro Annual Commit,WIPRO,WIPRO,MSP,LATAM,ML Platform,Prospecting,,,2024-04-20,,Jordan Brooks,2
+OPP-0137,Deloitte Q3 2024,Deloitte Consulting,Deloitte Consulting,,EMEA,Governance Suite,Closed Won,341000,,2024-03-09,2024-06-05,Alex Kim,1
+OPP-0138,Capacity Allocation - Capgemini,Cap Gemini,Capgemini,MSP,North America,ML Platform,Closed Won,593000,,2024-02-12,2024-03-08,Morgan Lee,2
+OPP-0139,Capacity Allocation - Cognizant Technology Solutions,Cognizant,Cognizant,MSP,EMEA,Analytics Cloud,Closed Won,400000,,2024-01-12,2024-03-09,Jordan Brooks,2
+OPP-0140,Cognizant Annual Commit,Cognizant Technology Solutions,Cognizant,MSP,LATAM,Governance Suite,Closed Lost,402000,,2024-11-09,2025-01-30,Riley Chen,2
+OPP-0141,Deloitte Digital MSP Capacity 2024,Deloitte Consulting,Deloitte Digital,Partner,LATAM,Data Intelligence,Closed Won,710000,,2024-06-03,2024-08-26,Morgan Lee,1
+OPP-0142,Cognizant Annual Commit,Cognizant Technology Solutions,Cognizant Technology Solutions,,EMEA,ML Platform,Prospecting,,,2024-12-27,,Sam Patel,2
+OPP-0143,Cap Gemini Q2 2024,Capgemini,Capgemini SE,MSP,APAC,ML Platform,Prospecting,,,2024-09-03,,Sam Patel,2
+OPP-0144,Accenture Inc MSP Capacity 2024,Accenture Inc,accenture,MSP,LATAM,Data Intelligence,Prospecting,,,2024-06-08,,Alex Kim,1
+OPP-0145,Capacity Allocation - Cap Gemini,Cap Gemini,Capgemini SE,Partner,North America,Data Intelligence,Closed Lost,404000,,2025-01-14,2025-01-20,Jamie Torres,2
+OPP-0146,Capacity Allocation - Cognizant Technology Solutions,Cognizant,Cognizant,,APAC,Data Intelligence,Closed Won,777000,,2024-06-10,2024-07-01,Jordan Brooks,2
+OPP-0147,Deloitte Digital - Data Intelligence,Deloitte Digital,Deloitte,MSP,EMEA,Analytics Cloud,Closed Won,168000,,2024-02-17,2024-04-25,Alex Kim,1
+OPP-0148,Deloitte Digital Q1 2024,Deloitte,Deloitte Consulting,,APAC,ML Platform,Closed Lost,582000,,2024-10-06,2024-11-12,Alex Kim,1
+OPP-0149,Cognizant Technology Solutions Q3 2024,Cognizant,Cognizant,Partner,EMEA,Data Intelligence,Closed Won,165000,,2024-07-31,2024-08-24,Jordan Brooks,2
+OPP-0150,Deloitte Consulting - Data Intelligence,Deloitte Digital,Deloitte Digital,MSP,LATAM,Analytics Cloud,Closed Won,290000,,2024-10-30,2024-12-13,Sam Patel,1
+OPP-0151,Wipro Technologies - Governance Suite,WIPRO,Wipro,,EMEA,Governance Suite,Closed Won,657000,,2024-10-06,2024-11-07,Alex Kim,2
+OPP-0152,WIPRO - Capacity Block,Wipro Technologies,WIPRO,,LATAM,ML Platform,Closed Won,572000,,2024-10-10,2024-12-11,Sam Patel,2
+OPP-0153,Accenture MSP Capacity 2024,accenture,Accenture Inc,Partner,APAC,Analytics Cloud,Closed Won,159000,,2024-03-29,2024-05-05,Alex Kim,1
+OPP-0154,Accenture LLP - ML Platform,accenture,Accenture,MSP,LATAM,Analytics Cloud,Closed Lost,471000,,2024-11-29,2024-12-17,Alex Kim,1
+OPP-0155,accenture MSP Capacity 2024,Accenture,accenture,MSP,North America,Governance Suite,Closed Won,351000,,2024-05-18,2024-05-20,Jamie Torres,1
+OPP-0156,Enterprise_232 - MSP Deployment,Enterprise_232,Accenture LLP,,APAC,ML Platform,Closed Won,62979,,2025-02-19,2025-03-24,Sam Patel,1
+OPP-0157,Enterprise_235 - MSP Deployment,Enterprise_235,,MSP,EMEA,ML Platform,Proposal,,,2024-11-29,,Morgan Lee,1
+OPP-0158,Enterprise_219 - Data Intelligence Expansion,Enterprise_219,,,LATAM,ML Platform,Closed Won,125994,,2024-05-21,2024-07-16,Jamie Torres,1
+OPP-0159,Enterprise_239 - Analytics Cloud Expansion,Enterprise_239,,,EMEA,ML Platform,Closed Won,152215,,2024-05-16,2024-05-22,Sam Patel,1
+OPP-0160,Enterprise_132 - Deloitte Consulting Allocation,Enterprise_132,Deloitte,MSP,LATAM,ML Platform,Closed Won,41910,,2024-04-11,2024-04-21,Riley Chen,1
+OPP-0161,Enterprise_246 - Cap Gemini Allocation,Enterprise_246,Capgemini,,LATAM,Analytics Cloud,Closed Lost,27901,,2024-11-30,2025-01-10,Jordan Brooks,2
+OPP-0162,Enterprise_239 - ML Platform Expansion,Enterprise_239,,,LATAM,Analytics Cloud,Closed Won,27669,,2024-06-05,2024-06-20,Jordan Brooks,2
+OPP-0163,Enterprise_102 - Data Intelligence Expansion,Enterprise_102,,Direct,LATAM,Analytics Cloud,Closed Won,30428,,2024-07-22,2024-07-23,Jordan Brooks,2
+OPP-0164,Enterprise_238 - Infosys BPM Allocation,Enterprise_238,Infosys BPM,,LATAM,ML Platform,Proposal,,,2024-05-22,,Riley Chen,1
+OPP-0165,Enterprise_172 - MSP Deployment,Enterprise_172,Infosys BPM,,EMEA,Analytics Cloud,Closed Won,45730,,2025-02-14,2025-02-16,Alex Kim,1
+OPP-0166,Enterprise_157 - MSP Deployment,Enterprise_157,Infosys BPM,Direct,APAC,Analytics Cloud,Closed Won,143028,,2024-11-02,2024-12-16,Morgan Lee,1
+OPP-0167,Enterprise_102 - Infosys Allocation,Enterprise_102,,,LATAM,Analytics Cloud,Proposal,,,2025-03-01,,Jordan Brooks,1
+OPP-0168,Enterprise_110 - Analytics Cloud Expansion,Enterprise_110,,MSP,EMEA,Data Intelligence,Closed Won,139752,,2024-11-13,2024-12-16,Jordan Brooks,2
+OPP-0169,Enterprise_120 - Cognizant Technology Solutions Allocation,Enterprise_120,,,EMEA,Data Intelligence,Closed Won,98401,,2024-09-20,2024-09-21,Jordan Brooks,2
+OPP-0170,Enterprise_191 - Cognizant Allocation,Enterprise_191,Cognizant Technology Solutions,MSP,APAC,Data Intelligence,Closed Won,117740,,2024-08-08,2024-09-21,Jordan Brooks,2
+OPP-0171,Enterprise_112 - MSP Deployment,Enterprise_112,WIPRO,,North America,Data Intelligence,Closed Won,50502,,2024-08-26,2024-10-13,Jamie Torres,2
+OPP-0172,Enterprise_129 - MSP Deployment,Enterprise_129,,MSP,EMEA,Data Intelligence,Closed Won,67836,,2024-11-22,2025-01-13,Jamie Torres,2
+OPP-0173,Enterprise_116 - Data Intelligence Expansion,Enterprise_116,Deloitte Consulting,,LATAM,Analytics Cloud,Closed Won,50645,,2025-03-07,2025-03-07,Alex Kim,1
+OPP-0174,Enterprise_193 - MSP Deployment,Enterprise_193,,,LATAM,Governance Suite,Qualification,,,2024-07-18,,Sam Patel,1
+OPP-0175,Enterprise_216 - Infosys BPM Allocation,Enterprise_216,Infosys,,North America,Governance Suite,Closed Won,90635,,2025-02-05,2025-03-28,Morgan Lee,1
+OPP-0176,Enterprise_166 - MSP Deployment,Enterprise_166,,,APAC,Governance Suite,Closed Won,80117,,2024-10-05,2024-10-27,Riley Chen,1
+OPP-0177,Enterprise_212 - Data Intelligence Expansion,Enterprise_212,,,EMEA,Analytics Cloud,Closed Won,70224,,2024-08-24,2024-08-27,Morgan Lee,2
+OPP-0178,Enterprise_172 - MSP Deployment,Enterprise_172,,MSP,LATAM,Analytics Cloud,Closed Won,189868,,2025-02-09,2025-03-17,Riley Chen,2
+OPP-0179,Enterprise_113 - Analytics Cloud Expansion,Enterprise_113,Cognizant Technology Solutions,,APAC,Data Intelligence,Closed Won,25749,,2024-07-18,2024-08-06,Jordan Brooks,2
+OPP-0180,Enterprise_246 - Cognizant Technology Solutions Allocation,Enterprise_246,,Direct,EMEA,Data Intelligence,Closed Lost,28593,,2024-06-27,2024-08-22,Jamie Torres,2
+OPP-0181,Enterprise_163 - Wipro Technologies Allocation,Enterprise_163,Wipro Technologies,MSP,EMEA,Governance Suite,Closed Won,44581,,2024-10-03,2024-10-26,Morgan Lee,2
+OPP-0182,Enterprise_229 - Wipro Allocation,Enterprise_229,,,APAC,Governance Suite,Closed Won,22489,,2025-02-23,2025-02-27,Jamie Torres,2
+OPP-0183,Enterprise_206 - Wipro Technologies Allocation,Enterprise_206,Wipro Technologies,MSP,North America,Governance Suite,Qualification,,,2024-12-20,,Morgan Lee,2
+OPP-0184,Enterprise_175 - WIPRO Allocation,Enterprise_175,Wipro,MSP,EMEA,Governance Suite,Closed Won,51088,,2025-01-16,2025-02-18,Jordan Brooks,2
+OPP-0185,Enterprise_198 - Deloitte Allocation,Enterprise_198,Deloitte,Direct,North America,Analytics Cloud,Qualification,,,2024-05-29,,Jordan Brooks,1
+OPP-0186,Enterprise_207 - Data Intelligence Expansion,Enterprise_207,,,EMEA,Analytics Cloud,Closed Won,10651,,2024-11-14,2025-01-13,Alex Kim,1
+OPP-0187,Enterprise_105 - Analytics Cloud Expansion,Enterprise_105,,MSP,APAC,Analytics Cloud,Closed Won,14841,,2024-06-17,2024-07-07,Riley Chen,1
+OPP-0188,Enterprise_247 - MSP Deployment,Enterprise_247,Infosys BPM,MSP,LATAM,Data Intelligence,Closed Won,55059,,2025-03-03,2025-03-28,Morgan Lee,1
+OPP-0189,Enterprise_201 - Infosys Allocation,Enterprise_201,,MSP,EMEA,Data Intelligence,Closed Won,98105,,2025-03-29,2025-03-31,Jordan Brooks,1
+OPP-0190,Enterprise_164 - Infosys Allocation,Enterprise_164,,,APAC,Data Intelligence,Closed Won,103599,,2025-03-20,2025-03-20,Sam Patel,1
+OPP-0191,Enterprise_233 - Infosys BPM Allocation,Enterprise_233,Infosys BPM,MSP,LATAM,Data Intelligence,Closed Won,81122,,2025-02-25,2025-03-16,Sam Patel,1
+OPP-0192,Enterprise_189 - WIPRO Allocation,Enterprise_189,,,LATAM,Data Intelligence,Closed Won,126361,,2024-08-21,2024-08-25,Morgan Lee,2
+OPP-0193,Enterprise_104 - Wipro Allocation,Enterprise_104,,MSP,LATAM,Data Intelligence,Closed Won,55878,,2024-10-28,2024-11-14,Sam Patel,2
+OPP-0194,Enterprise_225 - MSP Deployment,Enterprise_225,Wipro,MSP,LATAM,Data Intelligence,Closed Won,62187,,2025-01-30,2025-02-28,Alex Kim,2
+OPP-0195,Enterprise_237 - Analytics Cloud Expansion,Enterprise_237,Infosys,,North America,ML Platform,Proposal,,,2024-12-31,,Jamie Torres,1
+OPP-0196,Enterprise_212 - Governance Suite Expansion,Enterprise_212,,MSP,LATAM,ML Platform,Closed Won,16771,,2025-02-10,2025-03-28,Morgan Lee,1
+OPP-0197,Enterprise_139 - MSP Deployment,Enterprise_139,,Direct,APAC,ML Platform,Closed Won,37517,,2025-01-25,2025-02-01,Jamie Torres,2
+OPP-0198,Enterprise_141 - Governance Suite Expansion,Enterprise_141,,,LATAM,Governance Suite,Closed Won,54253,,2025-03-18,2025-03-26,Riley Chen,2
+OPP-0199,Enterprise_232 - MSP Deployment,Enterprise_232,,Direct,APAC,Governance Suite,Closed Won,28792,,2024-10-12,2024-11-28,Riley Chen,2
+OPP-0200,Enterprise_193 - MSP Deployment,Enterprise_193,WIPRO,MSP,EMEA,Governance Suite,Closed Won,58260,,2024-03-26,2024-05-19,Riley Chen,2
+OPP-0201,Enterprise_130 - Deloitte Allocation,Enterprise_130,,MSP,LATAM,Governance Suite,Closed Won,60515,,2025-02-13,2025-03-24,Riley Chen,1
+OPP-0202,Enterprise_134 - MSP Deployment,Enterprise_134,,MSP,EMEA,Governance Suite,Closed Won,27421,,2024-08-21,2024-10-06,Alex Kim,1
+OPP-0203,Enterprise_164 - Deloitte Consulting Allocation,Enterprise_164,Deloitte Digital,,APAC,Governance Suite,Closed Won,58838,,2025-02-26,2025-03-15,Jamie Torres,1
+OPP-0204,Enterprise_175 - Accenture Inc Allocation,Enterprise_175,Accenture LLP,MSP,EMEA,ML Platform,Closed Won,45482,,2024-11-24,2025-01-20,Jamie Torres,1
+OPP-0205,Enterprise_148 - Accenture Inc Allocation,Enterprise_148,,MSP,APAC,ML Platform,Closed Lost,135543,,2024-03-25,2024-05-17,Alex Kim,1
+OPP-0206,Enterprise_127 - MSP Deployment,Enterprise_127,,MSP,EMEA,ML Platform,Closed Won,117015,,2024-06-02,2024-07-30,Riley Chen,1
+OPP-0207,Enterprise_155 - Data Intelligence Expansion,Enterprise_155,Cognizant Technology Solutions,,North America,Analytics Cloud,Closed Won,74680,,2024-08-04,2024-08-29,Jamie Torres,2
+OPP-0208,Enterprise_144 - Cognizant Allocation,Enterprise_144,,,LATAM,Analytics Cloud,Closed Won,35688,,2024-04-07,2024-05-09,Jamie Torres,2
+OPP-0209,Enterprise_212 - MSP Deployment,Enterprise_212,,Direct,EMEA,Analytics Cloud,Closed Won,61280,,2024-09-07,2024-09-28,Jordan Brooks,2
+OPP-0210,Enterprise_108 - Governance Suite Expansion,Enterprise_108,,Direct,APAC,Analytics Cloud,Proposal,,,2024-10-22,,Jordan Brooks,2
+OPP-0211,Enterprise_193 - Deloitte Digital Allocation,Enterprise_193,,,LATAM,Data Intelligence,Closed Won,41101,,2024-10-23,2024-11-06,Jordan Brooks,1
+OPP-0212,Enterprise_158 - MSP Deployment,Enterprise_158,,,LATAM,Data Intelligence,Closed Won,142218,,2025-02-26,2025-03-12,Sam Patel,2
+OPP-0213,Enterprise_176 - MSP Deployment,Enterprise_176,Cognizant Technology Solutions,MSP,North America,Data Intelligence,Qualification,,,2024-12-26,,Alex Kim,2
+OPP-0214,Enterprise_157 - Cognizant Technology Solutions Allocation,Enterprise_157,,Direct,APAC,Data Intelligence,Qualification,,,2025-01-27,,Sam Patel,2
+OPP-0215,Enterprise_134 - MSP Deployment,Enterprise_134,,MSP,APAC,Analytics Cloud,Closed Won,44702,,2024-05-19,2024-07-14,Riley Chen,1
+OPP-0216,Enterprise_166 - Data Intelligence Expansion,Enterprise_166,Cognizant,,North America,Data Intelligence,Closed Won,17080,,2024-10-18,2024-10-31,Alex Kim,2
+OPP-0217,Enterprise_121 - Cognizant Allocation,Enterprise_121,Cognizant,MSP,APAC,Data Intelligence,Closed Won,32701,,2024-12-18,2025-01-03,Sam Patel,2
+OPP-0218,Enterprise_119 - Deloitte Allocation,Enterprise_119,Deloitte Digital,MSP,APAC,Analytics Cloud,Closed Won,52292,,2024-12-28,2025-01-27,Riley Chen,1
+OPP-0219,Enterprise_102 - Deloitte Digital Allocation,Enterprise_102,,MSP,LATAM,Analytics Cloud,Closed Won,84091,,2024-12-23,2025-01-29,Sam Patel,1
+OPP-0220,Enterprise_245 - WIPRO Allocation,Enterprise_245,,MSP,North America,Governance Suite,Closed Won,75659,,2025-01-19,2025-03-10,Jamie Torres,2
+OPP-0221,Enterprise_142 - MSP Deployment,Enterprise_142,,Direct,North America,Governance Suite,Closed Won,148306,,2025-02-28,2025-03-11,Alex Kim,2
+OPP-0222,Enterprise_247 - Governance Suite Expansion,Enterprise_247,,Direct,LATAM,Governance Suite,Closed Won,76163,,2025-03-18,2025-03-19,Jordan Brooks,2
+OPP-0223,Enterprise_151 - MSP Deployment,Enterprise_151,,MSP,APAC,Governance Suite,Closed Lost,100594,,2024-12-20,2025-02-17,Alex Kim,2
+OPP-0224,Enterprise_243 - ML Platform Expansion,Enterprise_243,,MSP,EMEA,ML Platform,Closed Lost,39232,,2025-03-06,2025-03-22,Alex Kim,2
+OPP-0225,Enterprise_169 - Wipro Allocation,Enterprise_169,WIPRO,,LATAM,ML Platform,Closed Won,73357,,2024-12-18,2024-12-26,Morgan Lee,2
+OPP-0226,Enterprise_107 - Wipro Technologies Allocation,Enterprise_107,,Direct,APAC,ML Platform,Closed Won,91252,,2025-03-13,2025-03-25,Riley Chen,2
+OPP-0227,Enterprise_189 - Wipro Allocation,Enterprise_189,,,APAC,ML Platform,Closed Won,64777,,2025-03-12,2025-03-21,Riley Chen,2
+OPP-0228,Enterprise_188 - MSP Deployment,Enterprise_188,Accenture Inc,Direct,LATAM,Analytics Cloud,Closed Won,41773,,2024-09-13,2024-10-16,Morgan Lee,1
+OPP-0229,Enterprise_221 - Governance Suite Expansion,Enterprise_221,,MSP,EMEA,Analytics Cloud,Closed Won,26466,,2024-09-30,2024-10-16,Sam Patel,1
+OPP-0230,Enterprise_102 - MSP Deployment,Enterprise_102,,MSP,LATAM,Analytics Cloud,Closed Won,42118,,2024-05-22,2024-06-03,Riley Chen,1
+OPP-0231,Enterprise_222 - Accenture Allocation,Enterprise_222,,Direct,North America,Analytics Cloud,Closed Won,43897,,2024-07-14,2024-07-30,Jamie Torres,1
+OPP-0232,Enterprise_212 - ML Platform Expansion,Enterprise_212,Accenture LLP,,North America,Governance Suite,Closed Won,86700,,2025-01-05,2025-02-07,Sam Patel,1
+OPP-0233,Enterprise_128 - Governance Suite,Enterprise_166,,,LATAM,Governance Suite,Prospecting,,,2024-12-24,,Alex Kim,
+OPP-0234,Enterprise_197 - Analytics Cloud,Enterprise_107,,Direct,APAC,Analytics Cloud,Prospecting,,,2024-08-22,,Alex Kim,
+OPP-0235,Enterprise_158 - Data Intelligence,Enterprise_222,,Direct,North America,ML Platform,Closed Won,233000,,2024-03-31,2024-07-25,Alex Kim,
+OPP-0236,Enterprise_174 - Analytics Cloud,Enterprise_143,,,EMEA,Analytics Cloud,Proposal,,,2025-02-10,,Alex Kim,
+OPP-0237,Enterprise_103 - ML Platform,Enterprise_232,,Direct,APAC,Governance Suite,Negotiation,,,2025-01-13,,Jordan Brooks,
+OPP-0238,Enterprise_233 - Data Intelligence,Enterprise_249,,Direct,LATAM,Data Intelligence,Closed Lost,41000,,2025-01-08,2025-02-11,Jamie Torres,
+OPP-0239,Enterprise_157 - ML Platform,Enterprise_157,,Direct,North America,Analytics Cloud,Closed Won,329000,,2024-04-16,2024-07-09,Morgan Lee,
+OPP-0240,Enterprise_207 - Governance Suite,Enterprise_158,,Direct,EMEA,ML Platform,Qualification,,,2024-06-12,,Jamie Torres,
+OPP-0241,Enterprise_184 - Data Intelligence,Enterprise_228,,,EMEA,Governance Suite,Qualification,,,2024-12-07,,Jordan Brooks,
+OPP-0242,Enterprise_172 - ML Platform,Enterprise_195,,Direct,EMEA,Governance Suite,Proposal,,,2024-08-26,,Sam Patel,
+OPP-0243,Enterprise_138 - Governance Suite,Enterprise_236,,,EMEA,Analytics Cloud,Proposal,,,2024-09-10,,Jordan Brooks,
+OPP-0244,Enterprise_105 - ML Platform,Enterprise_236,,Direct,APAC,ML Platform,Qualification,,,2024-08-02,,Riley Chen,
+OPP-0245,Enterprise_223 - Governance Suite,Enterprise_144,,,North America,ML Platform,Proposal,,,2024-02-04,,Riley Chen,
+OPP-0246,Enterprise_139 - ML Platform,Enterprise_248,,Direct,APAC,Analytics Cloud,Proposal,,,2025-03-17,,Jordan Brooks,
+OPP-0247,Enterprise_232 - Governance Suite,Enterprise_165,,Direct,APAC,Analytics Cloud,Closed Won,91000,,2024-04-22,2024-07-09,Riley Chen,
+OPP-0248,Enterprise_197 - Data Intelligence,Enterprise_106,,,LATAM,Analytics Cloud,Closed Won,373000,,2024-03-06,2024-06-29,Jamie Torres,
+OPP-0249,Enterprise_156 - Analytics Cloud,Enterprise_144,,Direct,LATAM,ML Platform,Proposal,,,2025-03-25,,Sam Patel,
+OPP-0250,Enterprise_165 - Analytics Cloud,Enterprise_200,,Direct,North America,ML Platform,Qualification,,,2024-02-22,,Jamie Torres,
+OPP-0251,Enterprise_101 - Data Intelligence,Enterprise_126,,,LATAM,Data Intelligence,Proposal,,,2024-07-02,,Alex Kim,
+OPP-0252,Enterprise_120 - Governance Suite,Enterprise_130,,,North America,Data Intelligence,Qualification,,,2024-04-23,,Riley Chen,
+OPP-0253,Enterprise_207 - Analytics Cloud,Enterprise_189,,,APAC,ML Platform,Prospecting,,,2025-01-06,,Morgan Lee,
+OPP-0254,Enterprise_245 - ML Platform,Enterprise_187,,,LATAM,Data Intelligence,Negotiation,,,2024-06-08,,Jamie Torres,
+OPP-0255,Enterprise_147 - ML Platform,Enterprise_120,,Direct,APAC,Governance Suite,Closed Won,338000,,2025-03-28,2025-03-29,Riley Chen,
+OPP-0256,Enterprise_149 - Governance Suite,Enterprise_111,,,APAC,ML Platform,Closed Won,158000,,2024-04-25,2024-06-24,Jamie Torres,
+OPP-0257,Enterprise_115 - Governance Suite,Enterprise_147,,Direct,LATAM,Data Intelligence,Proposal,,,2024-05-15,,Riley Chen,
+OPP-0258,Enterprise_193 - Governance Suite,Enterprise_104,,Direct,LATAM,Governance Suite,Closed Won,145000,,2024-01-05,2024-03-20,Morgan Lee,
+OPP-0259,Enterprise_121 - ML Platform,Enterprise_215,,Direct,APAC,Data Intelligence,Closed Won,347000,,2024-09-01,2024-10-21,Jamie Torres,
+OPP-0260,Enterprise_135 - ML Platform,Enterprise_200,,,LATAM,ML Platform,Closed Won,311000,,2024-11-20,2025-03-19,Jamie Torres,
+OPP-0261,Enterprise_105 - Data Intelligence,Enterprise_160,,,APAC,Governance Suite,Proposal,,,2024-01-04,,Jordan Brooks,
+OPP-0262,Enterprise_248 - Analytics Cloud,Enterprise_217,,Direct,LATAM,Data Intelligence,Closed Lost,203000,,2025-03-04,2025-03-14,Sam Patel,
+OPP-0263,Enterprise_245 - Data Intelligence,Enterprise_210,,Direct,LATAM,Analytics Cloud,Qualification,,,2024-05-18,,Alex Kim,
+OPP-0264,Enterprise_212 - ML Platform,Enterprise_146,,Direct,EMEA,ML Platform,Qualification,,,2024-07-21,,Sam Patel,
+OPP-0265,Enterprise_196 - Data Intelligence,Enterprise_142,,Direct,North America,ML Platform,Negotiation,,,2025-01-06,,Alex Kim,
+OPP-0266,Enterprise_152 - Governance Suite,Enterprise_135,,Direct,EMEA,Governance Suite,Proposal,,,2024-12-14,,Jamie Torres,
+OPP-0267,Enterprise_174 - Analytics Cloud,Enterprise_239,,,EMEA,Analytics Cloud,Proposal,,,2024-10-29,,Morgan Lee,
+OPP-0268,Enterprise_163 - Analytics Cloud,Enterprise_164,,Direct,APAC,Governance Suite,Negotiation,,,2024-03-31,,Sam Patel,
+OPP-0269,Enterprise_202 - Governance Suite,Enterprise_146,,Direct,LATAM,ML Platform,Proposal,,,2024-03-22,,Jordan Brooks,
+OPP-0270,Enterprise_135 - ML Platform,Enterprise_171,,,LATAM,Data Intelligence,Proposal,,,2024-01-17,,Jordan Brooks,
+OPP-0271,Enterprise_129 - Governance Suite,Enterprise_132,,Direct,LATAM,Governance Suite,Closed Lost,161000,,2024-04-25,2024-05-30,Alex Kim,
+OPP-0272,Enterprise_175 - ML Platform,Enterprise_228,,Direct,LATAM,Governance Suite,Closed Won,124000,,2024-02-26,2024-06-02,Riley Chen,
+OPP-0273,Enterprise_192 - Analytics Cloud,Enterprise_164,,Direct,EMEA,Analytics Cloud,Closed Lost,337000,,2024-11-30,2025-01-01,Riley Chen,
+OPP-0274,Enterprise_188 - Data Intelligence,Enterprise_122,,Direct,LATAM,Governance Suite,Closed Lost,167000,,2024-07-29,2024-08-20,Sam Patel,
+OPP-0275,Enterprise_108 - ML Platform,Enterprise_150,,Direct,APAC,Governance Suite,Proposal,,,2024-01-22,,Alex Kim,
+OPP-0276,Enterprise_190 - Data Intelligence,Enterprise_154,,Direct,North America,Analytics Cloud,Closed Won,44000,,2024-04-12,2024-05-13,Jamie Torres,
+OPP-0277,Enterprise_144 - Analytics Cloud,Enterprise_181,,Direct,LATAM,Analytics Cloud,Negotiation,,,2025-02-01,,Riley Chen,
+OPP-0278,Enterprise_208 - Data Intelligence,Enterprise_233,,,APAC,Analytics Cloud,Qualification,,,2025-03-23,,Sam Patel,
+OPP-0279,Enterprise_149 - Data Intelligence,Enterprise_214,,,APAC,Analytics Cloud,Qualification,,,2024-08-17,,Riley Chen,
+OPP-0280,Enterprise_186 - Governance Suite,Enterprise_193,,,APAC,ML Platform,Qualification,,,2024-08-16,,Jordan Brooks,
+OPP-0281,Enterprise_218 - Governance Suite,Enterprise_178,,Direct,APAC,Governance Suite,Closed Won,120000,,2024-03-08,2024-04-07,Morgan Lee,
+OPP-0282,Enterprise_195 - Data Intelligence,Enterprise_169,,Direct,LATAM,Data Intelligence,Prospecting,,,2024-03-23,,Riley Chen,
+OPP-0283,Enterprise_113 - ML Platform,Enterprise_158,,Direct,North America,Governance Suite,Qualification,,,2024-03-12,,Jordan Brooks,
+OPP-0284,Enterprise_224 - Analytics Cloud,Enterprise_122,,Direct,LATAM,Analytics Cloud,Proposal,,,2024-02-03,,Jamie Torres,
+OPP-0285,Enterprise_148 - Analytics Cloud,Enterprise_220,,Direct,North America,Governance Suite,Prospecting,,,2024-03-29,,Jordan Brooks,
+OPP-0286,Enterprise_226 - Governance Suite,Enterprise_155,,,EMEA,Analytics Cloud,Negotiation,,,2024-08-11,,Riley Chen,
+OPP-0287,Enterprise_184 - ML Platform,Enterprise_232,,Direct,LATAM,Governance Suite,Proposal,,,2025-03-25,,Jordan Brooks,
+OPP-0288,Enterprise_169 - Data Intelligence,Enterprise_172,,Direct,APAC,Governance Suite,Prospecting,,,2024-03-27,,Alex Kim,
+OPP-0289,Enterprise_150 - ML Platform,Enterprise_181,,,North America,Governance Suite,Closed Won,367000,,2024-11-15,2025-02-06,Morgan Lee,
+OPP-0290,Enterprise_102 - ML Platform,Enterprise_150,,Direct,EMEA,Analytics Cloud,Closed Won,166000,,2025-03-30,2025-03-30,Alex Kim,
+OPP-0291,Enterprise_171 - ML Platform,Enterprise_193,,Direct,EMEA,Analytics Cloud,Qualification,,,2024-03-06,,Morgan Lee,
+OPP-0292,Enterprise_210 - Data Intelligence,Enterprise_170,,Direct,LATAM,ML Platform,Proposal,,,2024-08-21,,Jordan Brooks,

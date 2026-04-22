@@ -1,0 +1,478 @@
+import { useState, useEffect, useMemo } from 'react'
+import './App.css'
+import {
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  ResponsiveContainer, PieChart, Pie, Cell
+} from 'recharts'
+import { Filter, TrendingUp, TrendingDown, DollarSign, Users, BarChart3 } from 'lucide-react'
+
+interface Opportunity {
+  opp_id: string
+  opp_name: string
+  account_name: string
+  partner_name: string
+  opp_type: string
+  region: string
+  product: string
+  stage: string
+  amount_usd: number
+  partner_margin_usd: number
+  created_date: string
+  close_date: string
+  sales_rep: string
+  partner_tier: string
+}
+
+function parseCSV(text: string): Opportunity[] {
+  const lines = text.trim().split('\n')
+  const headers = lines[0].split(',')
+  return lines.slice(1).filter(line => line.trim()).map(line => {
+    const values = line.split(',')
+    const row: Record<string, string> = {}
+    headers.forEach((h, i) => { row[h.trim()] = (values[i] || '').trim() })
+    return {
+      opp_id: row.opp_id || '',
+      opp_name: row.opp_name || '',
+      account_name: row.account_name || '',
+      partner_name: row.partner_name || '',
+      opp_type: row.opp_type || '',
+      region: row.region || '',
+      product: row.product || '',
+      stage: row.stage || '',
+      amount_usd: parseFloat(row.amount_usd) || 0,
+      partner_margin_usd: parseFloat(row.partner_margin_usd) || 0,
+      created_date: row.created_date || '',
+      close_date: row.close_date || '',
+      sales_rep: row.sales_rep || '',
+      partner_tier: row.partner_tier || '',
+    }
+  })
+}
+
+function formatCurrency(value: number): string {
+  if (value >= 1_000_000) return `$${(value / 1_000_000).toFixed(1)}M`
+  if (value >= 1_000) return `$${(value / 1_000).toFixed(0)}K`
+  return `$${value.toFixed(0)}`
+}
+
+const OPP_TYPE_COLORS: Record<string, string> = {
+  Partner: '#6366f1',
+  Direct: '#06b6d4',
+  MSP: '#f59e0b',
+  '': '#94a3b8',
+}
+
+const PIE_COLORS = ['#6366f1', '#06b6d4', '#f59e0b', '#94a3b8', '#10b981', '#ef4444']
+
+function App() {
+  const [data, setData] = useState<Opportunity[]>([])
+  const [loading, setLoading] = useState(true)
+  const [selectedYear, setSelectedYear] = useState<string>('All')
+  const [selectedRegion, setSelectedRegion] = useState<string>('All')
+
+  useEffect(() => {
+    fetch('/sf_opportunities.csv')
+      .then(res => res.text())
+      .then(text => {
+        setData(parseCSV(text))
+        setLoading(false)
+      })
+  }, [])
+
+  const closedWon = useMemo(() =>
+    data.filter(d => d.stage === 'Closed Won' && d.close_date),
+    [data]
+  )
+
+  const years = useMemo(() => {
+    const yrs = [...new Set(closedWon.map(d => d.close_date.substring(0, 4)))].sort()
+    return yrs
+  }, [closedWon])
+
+  const regions = useMemo(() =>
+    [...new Set(data.map(d => d.region).filter(Boolean))].sort(),
+    [data]
+  )
+
+  const filtered = useMemo(() => {
+    return closedWon.filter(d => {
+      const year = d.close_date.substring(0, 4)
+      const matchYear = selectedYear === 'All' || year === selectedYear
+      const matchRegion = selectedRegion === 'All' || d.region === selectedRegion
+      return matchYear && matchRegion
+    })
+  }, [closedWon, selectedYear, selectedRegion])
+
+  const wonByOppType = useMemo(() => {
+    const map: Record<string, number> = {}
+    filtered.forEach(d => {
+      const key = d.opp_type || 'Unspecified'
+      map[key] = (map[key] || 0) + d.amount_usd
+    })
+    return Object.entries(map)
+      .map(([name, value]) => ({ name, value }))
+      .sort((a, b) => b.value - a.value)
+  }, [filtered])
+
+  const yoyGrowth = useMemo(() => {
+    const byYearType: Record<string, Record<string, number>> = {}
+    closedWon.forEach(d => {
+      const matchRegion = selectedRegion === 'All' || d.region === selectedRegion
+      if (!matchRegion) return
+      const year = d.close_date.substring(0, 4)
+      const key = d.opp_type || 'Unspecified'
+      if (!byYearType[year]) byYearType[year] = {}
+      byYearType[year][key] = (byYearType[year][key] || 0) + d.amount_usd
+    })
+
+    const sortedYears = Object.keys(byYearType).sort()
+    const oppTypes = [...new Set(closedWon.map(d => d.opp_type || 'Unspecified'))]
+
+    return sortedYears.map(year => {
+      const row: Record<string, string | number> = { year }
+      oppTypes.forEach(type => {
+        row[type] = byYearType[year]?.[type] || 0
+      })
+      return row
+    })
+  }, [closedWon, selectedRegion])
+
+  const yoyPercentages = useMemo(() => {
+    if (yoyGrowth.length < 2) return []
+    const results: { type: string; growth: number; current: number; previous: number }[] = []
+    const oppTypes = [...new Set(closedWon.map(d => d.opp_type || 'Unspecified'))]
+    const latest = yoyGrowth[yoyGrowth.length - 1]
+    const prev = yoyGrowth[yoyGrowth.length - 2]
+
+    oppTypes.forEach(type => {
+      const current = (latest[type] as number) || 0
+      const previous = (prev[type] as number) || 0
+      const growth = previous > 0 ? ((current - previous) / previous) * 100 : 0
+      results.push({ type, growth, current, previous })
+    })
+    return results.sort((a, b) => b.current - a.current)
+  }, [yoyGrowth, closedWon])
+
+  const partnerAttachRate = useMemo(() => {
+    const totalWon = filtered.reduce((sum, d) => sum + d.amount_usd, 0)
+    const partnerWon = filtered.filter(d => d.opp_type === 'Partner').reduce((sum, d) => sum + d.amount_usd, 0)
+    return totalWon > 0 ? (partnerWon / totalWon) * 100 : 0
+  }, [filtered])
+
+  const partnerAttachByYear = useMemo(() => {
+    const byYear: Record<string, { total: number; partner: number }> = {}
+    closedWon.forEach(d => {
+      const matchRegion = selectedRegion === 'All' || d.region === selectedRegion
+      if (!matchRegion) return
+      const year = d.close_date.substring(0, 4)
+      if (!byYear[year]) byYear[year] = { total: 0, partner: 0 }
+      byYear[year].total += d.amount_usd
+      if (d.opp_type === 'Partner') byYear[year].partner += d.amount_usd
+    })
+    return Object.entries(byYear)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([year, v]) => ({
+        year,
+        rate: v.total > 0 ? parseFloat(((v.partner / v.total) * 100).toFixed(1)) : 0,
+        partnerWon: v.partner,
+        totalWon: v.total,
+      }))
+  }, [closedWon, selectedRegion])
+
+  const wonByRegion = useMemo(() => {
+    const map: Record<string, number> = {}
+    filtered.forEach(d => {
+      const key = d.region || 'Unknown'
+      map[key] = (map[key] || 0) + d.amount_usd
+    })
+    return Object.entries(map)
+      .map(([name, value]) => ({ name, value }))
+      .sort((a, b) => b.value - a.value)
+  }, [filtered])
+
+  const totalWon = useMemo(() => filtered.reduce((s, d) => s + d.amount_usd, 0), [filtered])
+  const dealCount = filtered.length
+  const avgDealSize = dealCount > 0 ? totalWon / dealCount : 0
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <div className="text-lg text-slate-500">Loading dashboard...</div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="min-h-screen bg-slate-50">
+      <header className="bg-white border-b border-slate-200 px-4 py-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h1 className="text-xl font-bold text-slate-900 sm:text-2xl">SF Opportunities Dashboard</h1>
+            <p className="text-sm text-slate-500 mt-0.5">Sales performance and partner analytics</p>
+          </div>
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="flex items-center gap-2">
+              <Filter className="h-4 w-4 text-slate-400" />
+              <select
+                value={selectedYear}
+                onChange={e => setSelectedYear(e.target.value)}
+                className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              >
+                <option value="All">All Years</option>
+                {years.map(y => <option key={y} value={y}>{y}</option>)}
+              </select>
+            </div>
+            <div className="flex items-center gap-2">
+              <select
+                value={selectedRegion}
+                onChange={e => setSelectedRegion(e.target.value)}
+                className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              >
+                <option value="All">All Regions</option>
+                {regions.map(r => <option key={r} value={r}>{r}</option>)}
+              </select>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main className="px-4 py-6 sm:px-6 lg:px-8 space-y-6">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <KPICard
+            title="Total $ Won"
+            value={formatCurrency(totalWon)}
+            icon={<DollarSign className="h-5 w-5 text-emerald-600" />}
+            color="emerald"
+          />
+          <KPICard
+            title="Deals Won"
+            value={dealCount.toString()}
+            icon={<BarChart3 className="h-5 w-5 text-indigo-600" />}
+            color="indigo"
+          />
+          <KPICard
+            title="Avg Deal Size"
+            value={formatCurrency(avgDealSize)}
+            icon={<TrendingUp className="h-5 w-5 text-cyan-600" />}
+            color="cyan"
+          />
+          <KPICard
+            title="Partner Attach Rate"
+            value={`${partnerAttachRate.toFixed(1)}%`}
+            subtitle="Partner $ / Total $ Won"
+            icon={<Users className="h-5 w-5 text-amber-600" />}
+            color="amber"
+          />
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
+            <h2 className="text-base font-semibold text-slate-800 mb-4">$ Won by Opportunity Type</h2>
+            <ResponsiveContainer width="100%" height={320}>
+              <BarChart data={wonByOppType} layout="vertical">
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                <XAxis type="number" tickFormatter={formatCurrency} tick={{ fontSize: 12 }} />
+                <YAxis type="category" dataKey="name" width={90} tick={{ fontSize: 12 }} />
+                <Tooltip
+                  formatter={(value: number) => [formatCurrency(value), 'Amount Won']}
+                  contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0' }}
+                />
+                <Bar dataKey="value" radius={[0, 4, 4, 0]}>
+                  {wonByOppType.map((entry) => (
+                    <Cell key={entry.name} fill={OPP_TYPE_COLORS[entry.name] || '#94a3b8'} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+
+          <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
+            <h2 className="text-base font-semibold text-slate-800 mb-4">$ Won by Opp Type (Year over Year)</h2>
+            <ResponsiveContainer width="100%" height={320}>
+              <BarChart data={yoyGrowth}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                <XAxis dataKey="year" tick={{ fontSize: 12 }} />
+                <YAxis tickFormatter={formatCurrency} tick={{ fontSize: 12 }} />
+                <Tooltip
+                  formatter={(value: number, name: string) => [formatCurrency(value), name]}
+                  contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0' }}
+                />
+                <Legend />
+                {[...new Set(closedWon.map(d => d.opp_type || 'Unspecified'))].map((type, i) => (
+                  <Bar
+                    key={type}
+                    dataKey={type}
+                    fill={OPP_TYPE_COLORS[type] || PIE_COLORS[i % PIE_COLORS.length]}
+                    stackId="a"
+                    radius={i === 0 ? [4, 4, 0, 0] : undefined}
+                  />
+                ))}
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+          <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200 lg:col-span-1">
+            <h2 className="text-base font-semibold text-slate-800 mb-4">YoY Growth by Opp Type</h2>
+            {yoyPercentages.length > 0 ? (
+              <div className="space-y-3">
+                {yoyPercentages.map(item => (
+                  <div key={item.type} className="flex items-center justify-between rounded-lg bg-slate-50 px-4 py-3">
+                    <div>
+                      <p className="text-sm font-medium text-slate-700">{item.type}</p>
+                      <p className="text-xs text-slate-400">
+                        {formatCurrency(item.previous)} &rarr; {formatCurrency(item.current)}
+                      </p>
+                    </div>
+                    <div className={`flex items-center gap-1 text-sm font-semibold ${item.growth >= 0 ? 'text-emerald-600' : 'text-red-500'}`}>
+                      {item.growth >= 0 ? <TrendingUp className="h-4 w-4" /> : <TrendingDown className="h-4 w-4" />}
+                      {item.growth >= 0 ? '+' : ''}{item.growth.toFixed(1)}%
+                    </div>
+                  </div>
+                ))}
+                <p className="text-xs text-slate-400 mt-2">
+                  Comparing {yoyGrowth.length >= 2 ? `${yoyGrowth[yoyGrowth.length - 2].year} vs ${yoyGrowth[yoyGrowth.length - 1].year}` : ''}
+                </p>
+              </div>
+            ) : (
+              <p className="text-sm text-slate-400">Need at least 2 years of data</p>
+            )}
+          </div>
+
+          <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200 lg:col-span-1">
+            <h2 className="text-base font-semibold text-slate-800 mb-4">Partner Attach Rate Trend</h2>
+            <p className="text-xs text-slate-400 mb-3">Partner $ Won / Total $ Won</p>
+            <ResponsiveContainer width="100%" height={260}>
+              <BarChart data={partnerAttachByYear}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                <XAxis dataKey="year" tick={{ fontSize: 12 }} />
+                <YAxis
+                  tickFormatter={(v: number) => `${v}%`}
+                  domain={[0, 100]}
+                  tick={{ fontSize: 12 }}
+                />
+                <Tooltip
+                  formatter={(value: number, name: string) => {
+                    if (name === 'rate') return [`${value}%`, 'Attach Rate']
+                    return [formatCurrency(value), name]
+                  }}
+                  contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0' }}
+                />
+                <Bar dataKey="rate" fill="#6366f1" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+
+          <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200 lg:col-span-1">
+            <h2 className="text-base font-semibold text-slate-800 mb-4">$ Won by Region</h2>
+            <ResponsiveContainer width="100%" height={280}>
+              <PieChart>
+                <Pie
+                  data={wonByRegion}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={60}
+                  outerRadius={100}
+                  paddingAngle={3}
+                  dataKey="value"
+                  label={({ name, percent }: { name: string; percent: number }) =>
+                    `${name} ${(percent * 100).toFixed(0)}%`
+                  }
+                >
+                  {wonByRegion.map((_, i) => (
+                    <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip
+                  formatter={(value: number) => [formatCurrency(value), 'Amount Won']}
+                  contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0' }}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
+          <h2 className="text-base font-semibold text-slate-800 mb-4">
+            Won Deals Detail
+            <span className="ml-2 text-sm font-normal text-slate-400">({filtered.length} deals)</span>
+          </h2>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-slate-200 text-left text-xs font-medium uppercase tracking-wider text-slate-500">
+                  <th className="px-3 py-2">Opp Name</th>
+                  <th className="px-3 py-2">Account</th>
+                  <th className="px-3 py-2">Partner</th>
+                  <th className="px-3 py-2">Type</th>
+                  <th className="px-3 py-2">Region</th>
+                  <th className="px-3 py-2">Product</th>
+                  <th className="px-3 py-2 text-right">Amount</th>
+                  <th className="px-3 py-2">Close Date</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {filtered.slice(0, 50).map(d => (
+                  <tr key={d.opp_id} className="hover:bg-slate-50 transition-colors">
+                    <td className="px-3 py-2 max-w-48 truncate" title={d.opp_name}>{d.opp_name}</td>
+                    <td className="px-3 py-2 text-slate-600">{d.account_name}</td>
+                    <td className="px-3 py-2 text-slate-600">{d.partner_name || '\u2014'}</td>
+                    <td className="px-3 py-2">
+                      <span className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${
+                        d.opp_type === 'Partner' ? 'bg-indigo-100 text-indigo-700' :
+                        d.opp_type === 'Direct' ? 'bg-cyan-100 text-cyan-700' :
+                        d.opp_type === 'MSP' ? 'bg-amber-100 text-amber-700' :
+                        'bg-slate-100 text-slate-600'
+                      }`}>
+                        {d.opp_type || 'N/A'}
+                      </span>
+                    </td>
+                    <td className="px-3 py-2 text-slate-600">{d.region}</td>
+                    <td className="px-3 py-2 text-slate-600">{d.product}</td>
+                    <td className="px-3 py-2 text-right font-medium text-slate-800">{formatCurrency(d.amount_usd)}</td>
+                    <td className="px-3 py-2 text-slate-500">{d.close_date}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {filtered.length > 50 && (
+              <p className="text-xs text-slate-400 mt-2 px-3">Showing 50 of {filtered.length} deals</p>
+            )}
+          </div>
+        </div>
+      </main>
+    </div>
+  )
+}
+
+function KPICard({ title, value, subtitle, icon, color }: {
+  title: string
+  value: string
+  subtitle?: string
+  icon: React.ReactNode
+  color: string
+}) {
+  const bgMap: Record<string, string> = {
+    emerald: 'bg-emerald-50',
+    indigo: 'bg-indigo-50',
+    cyan: 'bg-cyan-50',
+    amber: 'bg-amber-50',
+  }
+  return (
+    <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
+      <div className="flex items-center gap-3">
+        <div className={`rounded-lg p-2 ${bgMap[color] || 'bg-slate-50'}`}>
+          {icon}
+        </div>
+        <div>
+          <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">{title}</p>
+          <p className="text-xl font-bold text-slate-900">{value}</p>
+          {subtitle && <p className="text-xs text-slate-400">{subtitle}</p>}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default App
