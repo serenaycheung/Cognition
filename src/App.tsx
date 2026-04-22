@@ -283,6 +283,34 @@ function App() {
   )
   const consTotal = consTotalWithPartner + consTotalWithoutPartner
 
+  const consWoWMetrics = useMemo(() => {
+    const monthMap: Record<string, { total: number; withPartner: number; withoutPartner: number }> = {}
+    consFiltered.forEach(d => {
+      if (!monthMap[d.month]) monthMap[d.month] = { total: 0, withPartner: 0, withoutPartner: 0 }
+      monthMap[d.month].total += d.consumption_usd
+      if (d.partner_name) monthMap[d.month].withPartner += d.consumption_usd
+      else monthMap[d.month].withoutPartner += d.consumption_usd
+    })
+    const sorted = Object.entries(monthMap).sort(([a], [b]) => a.localeCompare(b))
+    let cumTotal = 0
+    let cumWith = 0
+    let cumWithout = 0
+    const cumulative = sorted.map(([month, v]) => {
+      cumTotal += v.total
+      cumWith += v.withPartner
+      cumWithout += v.withoutPartner
+      return { month, cumTotal, cumWith, cumWithout }
+    })
+    if (cumulative.length === 0) return { totalChange: 0, withPartnerChange: 0, withoutPartnerChange: 0 }
+    const latest = cumulative[cumulative.length - 1]
+    const prev = cumulative.length > 1 ? cumulative[cumulative.length - 2] : null
+    return {
+      totalChange: prev ? latest.cumTotal - prev.cumTotal : 0,
+      withPartnerChange: prev ? latest.cumWith - prev.cumWith : 0,
+      withoutPartnerChange: prev ? latest.cumWithout - prev.cumWithout : 0,
+    }
+  }, [consFiltered])
+
   const consMonthlyTrend = useMemo(() => {
     const map: Record<string, { withPartner: number; withoutPartner: number }> = {}
     consFiltered.forEach(d => {
@@ -774,27 +802,84 @@ function App() {
       {activeTab === 'consumption' && (
         <>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <KPICard
-              title="Total Consumption"
-              value={formatCurrency(consTotal)}
-              subtitle="All deals"
-              icon={<DollarSign className="h-5 w-5 text-emerald-600" />}
-              color="emerald"
-            />
-            <KPICard
-              title="With Partners"
-              value={formatCurrency(consTotalWithPartner)}
-              subtitle={`${consTotal > 0 ? ((consTotalWithPartner / consTotal) * 100).toFixed(1) : 0}% of total`}
-              icon={<Users className="h-5 w-5 text-indigo-600" />}
-              color="indigo"
-            />
-            <KPICard
-              title="Without Partners"
-              value={formatCurrency(consTotalWithoutPartner)}
-              subtitle={`${consTotal > 0 ? ((consTotalWithoutPartner / consTotal) * 100).toFixed(1) : 0}% of total`}
-              icon={<BarChart3 className="h-5 w-5 text-cyan-600" />}
-              color="cyan"
-            />
+            <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
+              <div className="flex items-center gap-3">
+                <div className="rounded-lg p-2 bg-emerald-50">
+                  <DollarSign className="h-5 w-5 text-emerald-600" />
+                </div>
+                <div>
+                  <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">Total Consumption</p>
+                  <p className="text-xl font-bold text-slate-900">{formatCurrency(consTotal)}</p>
+                  <div className="flex items-center gap-1 mt-0.5">
+                    {consWoWMetrics.totalChange !== 0 && (
+                      <>
+                        {consWoWMetrics.totalChange > 0
+                          ? <TrendingUp className="h-3.5 w-3.5 text-emerald-600" />
+                          : <TrendingDown className="h-3.5 w-3.5 text-red-500" />}
+                        <span className={`text-xs font-semibold ${
+                          consWoWMetrics.totalChange > 0 ? 'text-emerald-600' : 'text-red-500'
+                        }`}>
+                          {consWoWMetrics.totalChange > 0 ? '+' : '-'}{formatCurrency(Math.abs(consWoWMetrics.totalChange))}
+                        </span>
+                      </>
+                    )}
+                    <span className="text-xs text-slate-400">vs prior month</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
+              <div className="flex items-center gap-3">
+                <div className="rounded-lg p-2 bg-indigo-50">
+                  <Users className="h-5 w-5 text-indigo-600" />
+                </div>
+                <div>
+                  <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">With Partners</p>
+                  <p className="text-xl font-bold text-slate-900">{formatCurrency(consTotalWithPartner)}</p>
+                  <div className="flex items-center gap-1 mt-0.5">
+                    {consWoWMetrics.withPartnerChange !== 0 && (
+                      <>
+                        {consWoWMetrics.withPartnerChange > 0
+                          ? <TrendingUp className="h-3.5 w-3.5 text-emerald-600" />
+                          : <TrendingDown className="h-3.5 w-3.5 text-red-500" />}
+                        <span className={`text-xs font-semibold ${
+                          consWoWMetrics.withPartnerChange > 0 ? 'text-emerald-600' : 'text-red-500'
+                        }`}>
+                          {consWoWMetrics.withPartnerChange > 0 ? '+' : '-'}{formatCurrency(Math.abs(consWoWMetrics.withPartnerChange))}
+                        </span>
+                      </>
+                    )}
+                    <span className="text-xs text-slate-400">vs prior month ({consTotal > 0 ? ((consTotalWithPartner / consTotal) * 100).toFixed(1) : 0}% of total)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
+              <div className="flex items-center gap-3">
+                <div className="rounded-lg p-2 bg-cyan-50">
+                  <BarChart3 className="h-5 w-5 text-cyan-600" />
+                </div>
+                <div>
+                  <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">Without Partners</p>
+                  <p className="text-xl font-bold text-slate-900">{formatCurrency(consTotalWithoutPartner)}</p>
+                  <div className="flex items-center gap-1 mt-0.5">
+                    {consWoWMetrics.withoutPartnerChange !== 0 && (
+                      <>
+                        {consWoWMetrics.withoutPartnerChange > 0
+                          ? <TrendingUp className="h-3.5 w-3.5 text-emerald-600" />
+                          : <TrendingDown className="h-3.5 w-3.5 text-red-500" />}
+                        <span className={`text-xs font-semibold ${
+                          consWoWMetrics.withoutPartnerChange > 0 ? 'text-emerald-600' : 'text-red-500'
+                        }`}>
+                          {consWoWMetrics.withoutPartnerChange > 0 ? '+' : '-'}{formatCurrency(Math.abs(consWoWMetrics.withoutPartnerChange))}
+                        </span>
+                      </>
+                    )}
+                    <span className="text-xs text-slate-400">vs prior month ({consTotal > 0 ? ((consTotalWithoutPartner / consTotal) * 100).toFixed(1) : 0}% of total)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
