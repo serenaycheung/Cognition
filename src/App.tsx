@@ -155,8 +155,8 @@ function App() {
 
   const partnerAttachRate = useMemo(() => {
     const totalWon = filtered.reduce((sum, d) => sum + d.amount_usd, 0)
-    const partnerWon = filtered.filter(d => d.opp_type === 'Partner').reduce((sum, d) => sum + d.amount_usd, 0)
-    return totalWon > 0 ? (partnerWon / totalWon) * 100 : 0
+    const partnerMspWon = filtered.filter(d => d.opp_type === 'Partner' || d.opp_type === 'MSP').reduce((sum, d) => sum + d.amount_usd, 0)
+    return totalWon > 0 ? (partnerMspWon / totalWon) * 100 : 0
   }, [filtered])
 
   const partnerAttachByYear = useMemo(() => {
@@ -167,7 +167,7 @@ function App() {
       const year = d.close_date.substring(0, 4)
       if (!byYear[year]) byYear[year] = { total: 0, partner: 0 }
       byYear[year].total += d.amount_usd
-      if (d.opp_type === 'Partner') byYear[year].partner += d.amount_usd
+      if (d.opp_type === 'Partner' || d.opp_type === 'MSP') byYear[year].partner += d.amount_usd
     })
     return Object.entries(byYear)
       .sort(([a], [b]) => a.localeCompare(b))
@@ -267,7 +267,7 @@ function App() {
           <KPICard
             title="Partner Attach Rate"
             value={`${partnerAttachRate.toFixed(1)}%`}
-            subtitle="Partner $ / Total $ Won"
+            subtitle="(Partner + MSP) $ / Total $ Won"
             icon={<Users className="h-5 w-5 text-amber-600" />}
             color="amber"
           />
@@ -350,7 +350,7 @@ function App() {
 
           <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200 lg:col-span-1">
             <h2 className="text-base font-semibold text-slate-800 mb-4">Partner Attach Rate Trend</h2>
-            <p className="text-xs text-slate-400 mb-3">Partner $ Won / Total $ Won</p>
+            <p className="text-xs text-slate-400 mb-3">(Partner + MSP) $ Won / Total $ Won</p>
             <ResponsiveContainer width="100%" height={260}>
               <BarChart data={partnerAttachByYear}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
