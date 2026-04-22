@@ -352,6 +352,45 @@ function App() {
       .sort((a, b) => b.amount_usd - a.amount_usd)
   }, [pipelineOpps])
 
+  const closedWonWeekly = useMemo(() => {
+    const closedWon = data.filter(d => d.stage === 'Closed Won' && d.close_date)
+    const weekMap: Record<string, { total: number; partner: number }> = {}
+    closedWon.forEach(d => {
+      const date = new Date(d.close_date)
+      const dayOfWeek = date.getDay()
+      const diff = date.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1)
+      const monday = new Date(date)
+      monday.setDate(diff)
+      const weekKey = monday.toISOString().substring(0, 10)
+      if (!weekMap[weekKey]) weekMap[weekKey] = { total: 0, partner: 0 }
+      weekMap[weekKey].total += d.amount_usd
+      if (d.opp_type === 'Partner' || d.opp_type === 'MSP') {
+        weekMap[weekKey].partner += d.amount_usd
+      }
+    })
+    return Object.entries(weekMap)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([week, v]) => ({
+        week,
+        total: v.total,
+        partner: v.partner,
+        attachRate: v.total > 0 ? (v.partner / v.total) * 100 : 0,
+      }))
+  }, [data])
+
+  const latestWeekMetrics = useMemo(() => {
+    if (closedWonWeekly.length === 0) return { partnerWon: 0, attachRate: 0, partnerWonChange: 0, attachRateChange: 0 }
+    const latest = closedWonWeekly[closedWonWeekly.length - 1]
+    const prev = closedWonWeekly.length > 1 ? closedWonWeekly[closedWonWeekly.length - 2] : null
+    return {
+      partnerWon: latest.partner,
+      attachRate: latest.attachRate,
+      partnerWonChange: prev ? latest.partner - prev.partner : 0,
+      attachRateChange: prev ? latest.attachRate - prev.attachRate : 0,
+      latestWeek: latest.week,
+    }
+  }, [closedWonWeekly])
+
   const consByProduct = useMemo(() => {
     const map: Record<string, { withPartner: number; withoutPartner: number }> = {}
     consFiltered.forEach(d => {
@@ -808,6 +847,60 @@ function App() {
 
       {activeTab === 'pipeline' && (
         <>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mb-4">
+            <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
+              <div className="flex items-center gap-3">
+                <div className="rounded-lg p-2 bg-indigo-50">
+                  <DollarSign className="h-5 w-5 text-indigo-600" />
+                </div>
+                <div>
+                  <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">$ Closed Won Partner Attached</p>
+                  <p className="text-xl font-bold text-slate-900">{formatCurrency(latestWeekMetrics.partnerWon)}</p>
+                  <div className="flex items-center gap-1 mt-0.5">
+                    {latestWeekMetrics.partnerWonChange !== 0 && (
+                      <>
+                        {latestWeekMetrics.partnerWonChange > 0
+                          ? <TrendingUp className="h-3.5 w-3.5 text-emerald-600" />
+                          : <TrendingDown className="h-3.5 w-3.5 text-red-500" />}
+                        <span className={`text-xs font-semibold ${
+                          latestWeekMetrics.partnerWonChange > 0 ? 'text-emerald-600' : 'text-red-500'
+                        }`}>
+                          {latestWeekMetrics.partnerWonChange > 0 ? '+' : '-'}{formatCurrency(Math.abs(latestWeekMetrics.partnerWonChange))}
+                        </span>
+                      </>
+                    )}
+                    <span className="text-xs text-slate-400">vs prior week</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
+              <div className="flex items-center gap-3">
+                <div className="rounded-lg p-2 bg-emerald-50">
+                  <TrendingUp className="h-5 w-5 text-emerald-600" />
+                </div>
+                <div>
+                  <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">Partner Attach Rate</p>
+                  <p className="text-xl font-bold text-slate-900">{latestWeekMetrics.attachRate.toFixed(1)}%</p>
+                  <div className="flex items-center gap-1 mt-0.5">
+                    {latestWeekMetrics.attachRateChange !== 0 && (
+                      <>
+                        {latestWeekMetrics.attachRateChange > 0
+                          ? <TrendingUp className="h-3.5 w-3.5 text-emerald-600" />
+                          : <TrendingDown className="h-3.5 w-3.5 text-red-500" />}
+                        <span className={`text-xs font-semibold ${
+                          latestWeekMetrics.attachRateChange > 0 ? 'text-emerald-600' : 'text-red-500'
+                        }`}>
+                          {latestWeekMetrics.attachRateChange > 0 ? '+' : ''}{latestWeekMetrics.attachRateChange.toFixed(1)}pp
+                        </span>
+                      </>
+                    )}
+                    <span className="text-xs text-slate-400">vs prior week (Closed Won $)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <KPICard
               title="Partner Open Pipeline"
