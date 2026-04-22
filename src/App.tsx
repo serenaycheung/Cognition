@@ -304,6 +304,19 @@ function App() {
       .slice(0, 15)
   }, [consFiltered])
 
+  const consByProduct = useMemo(() => {
+    const map: Record<string, { withPartner: number; withoutPartner: number }> = {}
+    consFiltered.forEach(d => {
+      const product = d.product || 'Unknown'
+      if (!map[product]) map[product] = { withPartner: 0, withoutPartner: 0 }
+      if (d.partner_name) map[product].withPartner += d.consumption_usd
+      else map[product].withoutPartner += d.consumption_usd
+    })
+    return Object.entries(map)
+      .map(([name, v]) => ({ name, 'With Partner': v.withPartner, 'Without Partner': v.withoutPartner, total: v.withPartner + v.withoutPartner }))
+      .sort((a, b) => b.total - a.total)
+  }, [consFiltered])
+
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
@@ -683,6 +696,29 @@ function App() {
                   <Line type="monotone" dataKey="With Partner" stroke="#6366f1" strokeWidth={2} dot={{ r: 3 }} activeDot={{ r: 5 }} />
                   <Line type="monotone" dataKey="Without Partner" stroke="#9ca3af" strokeWidth={2} dot={{ r: 3 }} activeDot={{ r: 5 }} />
                 </LineChart>
+              </ResponsiveContainer>
+            ) : (
+              <p className="text-sm text-slate-400">No consumption data found</p>
+            )}
+          </div>
+
+          <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
+            <h2 className="text-base font-semibold text-slate-800 mb-4">Consumption $ by Product (With vs Without Partners)</h2>
+            <p className="text-xs text-slate-400 mb-3">Stacked by partner involvement</p>
+            {consByProduct.length > 0 ? (
+              <ResponsiveContainer width="100%" height={320}>
+                <BarChart data={consByProduct}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                  <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                  <YAxis tickFormatter={formatCurrency} tick={{ fontSize: 12 }} />
+                  <Tooltip
+                    formatter={(value: number, name: string) => [formatCurrency(value), name]}
+                    contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0' }}
+                  />
+                  <Legend />
+                  <Bar dataKey="With Partner" stackId="a" fill="#6366f1" radius={[0, 0, 0, 0]} />
+                  <Bar dataKey="Without Partner" stackId="a" fill="#9ca3af" radius={[4, 4, 0, 0]} />
+                </BarChart>
               </ResponsiveContainer>
             ) : (
               <p className="text-sm text-slate-400">No consumption data found</p>
