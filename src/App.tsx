@@ -4,7 +4,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
   ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line
 } from 'recharts'
-import { Filter, TrendingUp, TrendingDown, DollarSign, Users, BarChart3 } from 'lucide-react'
+import { Filter, TrendingUp, TrendingDown, DollarSign, Users, BarChart3, AlertTriangle, Clock } from 'lucide-react'
 
 interface Opportunity {
   opp_id: string
@@ -65,6 +65,9 @@ const OPP_TYPE_COLORS: Record<string, string> = {
 
 const PIE_COLORS = ['#6366f1', '#06b6d4', '#f59e0b', '#94a3b8', '#10b981', '#ef4444']
 
+const OPEN_STAGES = ['Prospecting', 'Qualification', 'Proposal', 'Negotiation']
+const POST_QUAL_STAGES = ['Proposal', 'Negotiation']
+
 interface Consumption {
   consumption_id: string
   linked_opp_id: string
@@ -102,7 +105,7 @@ function App() {
   const [data, setData] = useState<Opportunity[]>([])
   const [consumptionData, setConsumptionData] = useState<Consumption[]>([])
   const [loading, setLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState<'opportunities' | 'consumption'>('opportunities')
+  const [activeTab, setActiveTab] = useState<'opportunities' | 'consumption' | 'pipeline'>('opportunities')
   const [selectedYear, setSelectedYear] = useState<string>('All')
   const [selectedRegion, setSelectedRegion] = useState<string>('All')
   const [selectedStage, setSelectedStage] = useState<string>('Closed Won')
@@ -304,6 +307,52 @@ function App() {
       .slice(0, 15)
   }, [consFiltered])
 
+  // --- Pipeline Inspection tab data ---
+  const pipelineOpps = useMemo(() =>
+    data.filter(d => OPEN_STAGES.includes(d.stage)),
+    [data]
+  )
+
+  const partnerPipelineWoW = useMemo(() => {
+    const partnerOpen = pipelineOpps.filter(d => d.opp_type === 'Partner' || d.opp_type === 'MSP')
+    const weekMap: Record<string, number> = {}
+    partnerOpen.forEach(d => {
+      const date = new Date(d.created_date)
+      const dayOfWeek = date.getDay()
+      const diff = date.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1)
+      const monday = new Date(date)
+      monday.setDate(diff)
+      const weekKey = monday.toISOString().substring(0, 10)
+      weekMap[weekKey] = (weekMap[weekKey] || 0) + d.amount_usd
+    })
+    const sorted = Object.entries(weekMap)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([week, amount]) => ({ week, amount }))
+    return sorted.map((item, i) => ({
+      week: item.week,
+      amount: item.amount,
+      change: i > 0 ? item.amount - sorted[i - 1].amount : 0,
+    }))
+  }, [pipelineOpps])
+
+  const stalledOpps = useMemo(() => {
+    const now = new Date()
+    return pipelineOpps
+      .filter(d => {
+        if (!POST_QUAL_STAGES.includes(d.stage)) return false
+        const created = new Date(d.created_date)
+        const daysSinceCreated = Math.floor((now.getTime() - created.getTime()) / (1000 * 60 * 60 * 24))
+        return daysSinceCreated > 30
+      })
+      .sort((a, b) => new Date(a.created_date).getTime() - new Date(b.created_date).getTime())
+  }, [pipelineOpps])
+
+  const largeOppsNoPartner = useMemo(() => {
+    return pipelineOpps
+      .filter(d => d.amount_usd > 500000 && !d.partner_name)
+      .sort((a, b) => b.amount_usd - a.amount_usd)
+  }, [pipelineOpps])
+
   const consByProduct = useMemo(() => {
     const map: Record<string, { withPartner: number; withoutPartner: number }> = {}
     consFiltered.forEach(d => {
@@ -404,6 +453,16 @@ function App() {
             }`}
           >
             Consumption
+          </button>
+          <button
+            onClick={() => setActiveTab('pipeline')}
+            className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+              activeTab === 'pipeline'
+                ? 'bg-indigo-600 text-white'
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+            }`}
+          >
+            Weekly Pipeline Inspection
           </button>
         </div>
       </header>
@@ -743,6 +802,181 @@ function App() {
               </ResponsiveContainer>
             ) : (
               <p className="text-sm text-slate-400">No partner consumption data found</p>
+            )}
+          </div>
+        </>
+      )}
+
+      {activeTab === 'pipeline' && (
+        <>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <KPICard
+              title="Partner Open Pipeline"
+              value={formatCurrency(pipelineOpps.filter(d => d.opp_type === 'Partner' || d.opp_type === 'MSP').reduce((s, d) => s + d.amount_usd, 0))}
+              subtitle="Excl. Closed Won & Lost"
+              icon={<DollarSign className="h-5 w-5 text-emerald-600" />}
+              color="emerald"
+            />
+            <KPICard
+              title="Stalled Opps"
+              value={stalledOpps.length.toString()}
+              subtitle="Post-Qualification, >30 days"
+              icon={<Clock className="h-5 w-5 text-amber-600" />}
+              color="amber"
+            />
+            <KPICard
+              title="Large Opps w/o Partner"
+              value={largeOppsNoPartner.length.toString()}
+              subtitle=">$500K, no partner attached"
+              icon={<AlertTriangle className="h-5 w-5 text-cyan-600" />}
+              color="cyan"
+            />
+          </div>
+
+          <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
+            <h2 className="text-base font-semibold text-slate-800 mb-4">$ Partner Open Pipeline — Week over Week</h2>
+            <p className="text-xs text-slate-400 mb-3">Partner + MSP opps in open stages (excl. Closed Won & Closed Lost)</p>
+            {partnerPipelineWoW.length > 0 ? (
+              <ResponsiveContainer width="100%" height={350}>
+                <BarChart data={partnerPipelineWoW}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                  <XAxis
+                    dataKey="week"
+                    tick={{ fontSize: 10 }}
+                    tickFormatter={(v: string) => {
+                      const d = new Date(v)
+                      return `${d.getMonth() + 1}/${d.getDate()}`
+                    }}
+                  />
+                  <YAxis tickFormatter={formatCurrency} tick={{ fontSize: 12 }} />
+                  <Tooltip
+                    labelFormatter={(label: string) => `Week of ${label}`}
+                    formatter={(value: number, name: string) => [
+                      formatCurrency(value),
+                      name === 'amount' ? 'Pipeline Added' : 'WoW Change',
+                    ]}
+                    contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0' }}
+                  />
+                  <Legend formatter={(value: string) => value === 'amount' ? 'Pipeline Added' : 'WoW Change'} />
+                  <Bar dataKey="amount" fill="#6366f1" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="change" fill="#f59e0b" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            ) : (
+              <p className="text-sm text-slate-400">No partner pipeline data found</p>
+            )}
+          </div>
+
+          <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
+            <h2 className="text-base font-semibold text-slate-800 mb-4">
+              Stalled Opportunities (Post-Qualification, &gt;30 Days)
+              <span className="ml-2 text-sm font-normal text-slate-400">({stalledOpps.length})</span>
+            </h2>
+            <p className="text-xs text-slate-400 mb-3">Opportunities in Proposal or Negotiation stage created more than 30 days ago</p>
+            {stalledOpps.length > 0 ? (
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-slate-200 text-left text-xs font-medium uppercase tracking-wider text-slate-500">
+                      <th className="px-3 py-2">Opp Name</th>
+                      <th className="px-3 py-2">Account</th>
+                      <th className="px-3 py-2">Partner</th>
+                      <th className="px-3 py-2">Type</th>
+                      <th className="px-3 py-2">Stage</th>
+                      <th className="px-3 py-2">Region</th>
+                      <th className="px-3 py-2 text-right">Amount</th>
+                      <th className="px-3 py-2">Created</th>
+                      <th className="px-3 py-2 text-right">Days Open</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {stalledOpps.map(d => {
+                      const daysOpen = Math.floor((new Date().getTime() - new Date(d.created_date).getTime()) / (1000 * 60 * 60 * 24))
+                      return (
+                        <tr key={d.opp_id} className="hover:bg-slate-50 transition-colors">
+                          <td className="px-3 py-2 max-w-48 truncate" title={d.opp_name}>{d.opp_name}</td>
+                          <td className="px-3 py-2 text-slate-600">{d.account_name}</td>
+                          <td className="px-3 py-2 text-slate-600">{d.partner_name || '\u2014'}</td>
+                          <td className="px-3 py-2">
+                            <span className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${
+                              d.opp_type === 'Partner' ? 'bg-indigo-100 text-indigo-700' :
+                              d.opp_type === 'MSP' ? 'bg-amber-100 text-amber-700' :
+                              d.opp_type === 'Direct' ? 'bg-cyan-100 text-cyan-700' :
+                              'bg-slate-100 text-slate-600'
+                            }`}>
+                              {d.opp_type || 'N/A'}
+                            </span>
+                          </td>
+                          <td className="px-3 py-2">
+                            <span className="inline-block rounded-full px-2 py-0.5 text-xs font-medium bg-orange-100 text-orange-700">
+                              {d.stage}
+                            </span>
+                          </td>
+                          <td className="px-3 py-2 text-slate-600">{d.region}</td>
+                          <td className="px-3 py-2 text-right font-medium text-slate-800">{d.amount_usd > 0 ? formatCurrency(d.amount_usd) : '\u2014'}</td>
+                          <td className="px-3 py-2 text-slate-500">{d.created_date}</td>
+                          <td className="px-3 py-2 text-right">
+                            <span className={`font-semibold ${daysOpen > 90 ? 'text-red-600' : daysOpen > 60 ? 'text-amber-600' : 'text-slate-600'}`}>
+                              {daysOpen}d
+                            </span>
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <p className="text-sm text-slate-400">No stalled opportunities found</p>
+            )}
+          </div>
+
+          <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
+            <h2 className="text-base font-semibold text-slate-800 mb-4">
+              Opportunities &gt;$500K Without Partners
+              <span className="ml-2 text-sm font-normal text-slate-400">({largeOppsNoPartner.length})</span>
+            </h2>
+            <p className="text-xs text-slate-400 mb-3">Open pipeline deals over $500K with no partner attached</p>
+            {largeOppsNoPartner.length > 0 ? (
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-slate-200 text-left text-xs font-medium uppercase tracking-wider text-slate-500">
+                      <th className="px-3 py-2">Opp Name</th>
+                      <th className="px-3 py-2">Account</th>
+                      <th className="px-3 py-2">Type</th>
+                      <th className="px-3 py-2">Stage</th>
+                      <th className="px-3 py-2">Region</th>
+                      <th className="px-3 py-2">Product</th>
+                      <th className="px-3 py-2 text-right">Amount</th>
+                      <th className="px-3 py-2">Created</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {largeOppsNoPartner.map(d => (
+                      <tr key={d.opp_id} className="hover:bg-slate-50 transition-colors">
+                        <td className="px-3 py-2 max-w-48 truncate" title={d.opp_name}>{d.opp_name}</td>
+                        <td className="px-3 py-2 text-slate-600">{d.account_name}</td>
+                        <td className="px-3 py-2">
+                          <span className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${
+                            d.opp_type === 'Direct' ? 'bg-cyan-100 text-cyan-700' :
+                            'bg-slate-100 text-slate-600'
+                          }`}>
+                            {d.opp_type || 'N/A'}
+                          </span>
+                        </td>
+                        <td className="px-3 py-2 text-slate-600">{d.stage}</td>
+                        <td className="px-3 py-2 text-slate-600">{d.region}</td>
+                        <td className="px-3 py-2 text-slate-600">{d.product}</td>
+                        <td className="px-3 py-2 text-right font-medium text-red-600">{formatCurrency(d.amount_usd)}</td>
+                        <td className="px-3 py-2 text-slate-500">{d.created_date}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <p className="text-sm text-slate-400">No opportunities &gt;$500K without partners found</p>
             )}
           </div>
         </>
