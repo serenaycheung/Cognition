@@ -59,7 +59,8 @@ const OPP_TYPE_COLORS: Record<string, string> = {
   Partner: '#6366f1',
   Direct: '#06b6d4',
   MSP: '#f59e0b',
-  '': '#94a3b8',
+  Unspecified: '#9ca3af',
+  '': '#9ca3af',
 }
 
 const PIE_COLORS = ['#6366f1', '#06b6d4', '#f59e0b', '#94a3b8', '#10b981', '#ef4444']
