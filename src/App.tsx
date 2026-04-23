@@ -301,13 +301,16 @@ function App() {
       cumWithout += v.withoutPartner
       return { month, cumTotal, cumWith, cumWithout }
     })
-    if (cumulative.length === 0) return { totalChange: 0, withPartnerChange: 0, withoutPartnerChange: 0 }
+    if (cumulative.length === 0) return { totalChange: 0, withPartnerChange: 0, withoutPartnerChange: 0, attachRateChange: 0 }
     const latest = cumulative[cumulative.length - 1]
     const prev = cumulative.length > 1 ? cumulative[cumulative.length - 2] : null
+    const latestRate = latest.cumTotal > 0 ? (latest.cumWith / latest.cumTotal) * 100 : 0
+    const prevRate = prev && prev.cumTotal > 0 ? (prev.cumWith / prev.cumTotal) * 100 : 0
     return {
       totalChange: prev ? latest.cumTotal - prev.cumTotal : 0,
       withPartnerChange: prev ? latest.cumWith - prev.cumWith : 0,
       withoutPartnerChange: prev ? latest.cumWithout - prev.cumWithout : 0,
+      attachRateChange: prev ? latestRate - prevRate : 0,
     }
   }, [consFiltered])
 
@@ -801,7 +804,7 @@ function App() {
 
       {activeTab === 'consumption' && (
         <>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
               <div className="flex items-center gap-3">
                 <div className="rounded-lg p-2 bg-emerald-50">
@@ -876,6 +879,32 @@ function App() {
                       </>
                     )}
                     <span className="text-xs text-slate-400">vs prior month ({consTotal > 0 ? ((consTotalWithoutPartner / consTotal) * 100).toFixed(1) : 0}% of total)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
+              <div className="flex items-center gap-3">
+                <div className="rounded-lg p-2 bg-amber-50">
+                  <TrendingUp className="h-5 w-5 text-amber-600" />
+                </div>
+                <div>
+                  <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">Partner Attach Rate</p>
+                  <p className="text-xl font-bold text-slate-900">{consTotal > 0 ? ((consTotalWithPartner / consTotal) * 100).toFixed(1) : 0}%</p>
+                  <div className="flex items-center gap-1 mt-0.5">
+                    {consWoWMetrics.attachRateChange !== 0 && (
+                      <>
+                        {consWoWMetrics.attachRateChange > 0
+                          ? <TrendingUp className="h-3.5 w-3.5 text-emerald-600" />
+                          : <TrendingDown className="h-3.5 w-3.5 text-red-500" />}
+                        <span className={`text-xs font-semibold ${
+                          consWoWMetrics.attachRateChange > 0 ? 'text-emerald-600' : 'text-red-500'
+                        }`}>
+                          {consWoWMetrics.attachRateChange > 0 ? '+' : ''}{consWoWMetrics.attachRateChange.toFixed(1)}pp
+                        </span>
+                      </>
+                    )}
+                    <span className="text-xs text-slate-400">vs prior month</span>
                   </div>
                 </div>
               </div>
